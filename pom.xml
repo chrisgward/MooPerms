@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.chrisgward</groupId>
-    <artifactId>MooPerms</artifactId>
-    <version>1.0-SNAPSHOT</version>
+	<groupId>com.chrisgward</groupId>
+	<artifactId>MooPerms</artifactId>
+	<version>1.0-SNAPSHOT</version>
 
 	<contributors>
 		<contributor>
@@ -103,10 +103,25 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>${project.basedir}</directory>
+				<includes>
+					<include>LICENSE</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 	<properties>
 		<build.number>custom</build.number>
 	</properties>
-    
+
 </project>

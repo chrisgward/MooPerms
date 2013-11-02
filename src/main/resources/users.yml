@@ -4,4 +4,9 @@ users:
         subgroups:
         - donator
         permissions: []
-
+        worlds:
+            world:
+                group: herp
+                permissions:
+                - permission.name
+                - -herp

@@ -13,6 +13,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.chrisgward.mooperms;
 
 import com.chrisgward.mooperms.api.IMooPerms;
@@ -21,11 +36,14 @@ import com.chrisgward.mooperms.storage.Group;
 import com.chrisgward.mooperms.storage.User;
 import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 import static com.chrisgward.mooperms.I18n._;
@@ -34,6 +52,7 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 
 	@Getter private Configuration configuration;
 	@Getter private boolean lock;
+	@Getter @Setter private String defaultGroup;
 
 	private Metrics metrics = null;
 
@@ -66,6 +85,17 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 				showError(e, false);
 			}
 		}
+
+		for (Map.Entry<String, com.chrisgward.mooperms.configuration.groups.Group> group : getConfiguration().getGroups().getGroups().entrySet()) {
+			if (group.getValue().isDefault())
+				defaultGroup = group.getKey();
+		}
+
+		if (defaultGroup == null) {
+			throw new RuntimeException("No default group.");
+		}
+
+		userMap = new HashMap<>();
 	}
 
 	public void onDisable() {
@@ -78,31 +108,52 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		}
 
 		configuration = null;
+		userMap = null;
 	}
+
+	private Map<String, User> userMap = new HashMap<>();
 
 	@Override
 	public User getUser(String name) {
-		return null;
+		if (userMap.containsKey(name))
+			return userMap.get(name);
+
+		com.chrisgward.mooperms.configuration.users.User config = getConfiguration().getUsers().getUsers().get(name);
+
+		if (config == null) {
+			config = new com.chrisgward.mooperms.configuration.users.User();
+			config.setGroup(getDefaultGroup());
+		}
+
+		User user = new User(this, config);
+		userMap.put(name, user);
+
+		return user;
 	}
 
 	@Override
 	public User getUser(Player player) {
-		return null;
+		return getUser(player.getName());
 	}
 
-	@Override
-	public World getWorld(String name) {
-		return null;
+	public void disposeUser(String name) {
+		userMap.remove(name);
 	}
 
-	@Override
-	public World getWorld(org.bukkit.World name) {
-		return null;
+	public void disposeUser(Player player) {
+		disposeUser(player.getName());
 	}
 
+	private Map<String, Group> groupMap = new HashMap<>();
 	@Override
 	public Group getGroup(String name) {
 		return null;
+	}
+
+	public void debug(String text) {
+		if (getConfiguration().getConfig().isDebug()) {
+			getLogger().info(text);
+		}
 	}
 
 	@Override
