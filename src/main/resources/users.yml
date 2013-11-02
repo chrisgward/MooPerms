@@ -1,0 +1,7 @@
+users:
+    chrisward:
+        group: default
+        subgroups:
+        - donator
+        permissions: []
+

@@ -1,0 +1,15 @@
+groups:
+    default:
+        info:
+            prefix: "&f"
+            suffix: ""
+        permissions:
+        - stuff
+        inheritance: []
+        worlds:
+            world:
+                permissions:
+                - more.stuff
+                info:
+                    prefix: "&a"
+                    suffix: ""

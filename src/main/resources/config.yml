@@ -1,0 +1,7 @@
+mirrors:
+    world:
+        world:
+        - users
+
+
+locale: en_US
