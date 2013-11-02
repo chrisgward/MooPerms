@@ -16,12 +16,15 @@
 package com.chrisgward.mooperms;
 
 import com.chrisgward.mooperms.api.IMooPerms;
+import com.chrisgward.mooperms.commands.MooPermsCommandExecutor;
 import com.chrisgward.mooperms.configuration.Configuration;
 import com.chrisgward.mooperms.storage.Group;
 import com.chrisgward.mooperms.storage.User;
 import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
@@ -94,6 +97,11 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 
 		configuration = null;
 		userMap = null;
+	}
+
+	MooPermsCommandExecutor executor = new MooPermsCommandExecutor(this);
+	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
+		return executor.onCommand(sender, cmd, cmdLabel, args);
 	}
 
 	private Map<String, User> userMap = new HashMap<>();

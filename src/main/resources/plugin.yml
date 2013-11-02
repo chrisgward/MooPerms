@@ -1,3 +1,9 @@
 name: MooPerms
 main: com.chrisgward.mooperms.MooPerms
 version: ${project.version}-b${build.number}
+commands:
+  moo:
+  moouadd:
+  moouaddp:
+  mooullistp:
+  moousetg:
