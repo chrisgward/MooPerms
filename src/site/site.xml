@@ -14,6 +14,7 @@
   -->
 
 <project name="MooPerms">
+
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
 		<artifactId>maven-fluido-skin</artifactId>
@@ -42,13 +43,15 @@
 
 		<menu name="API Documentation">
 			<item name="Hooking MooPerms" href="api/hooking.html"/>
+			<item name="Javadocs" href="apidocs/index.html"/>
+			<item name="FAQ" href="api/faq.html"/>
 		</menu>
 
 		<menu name="Developer Documentation">
 			<item name="Compiling MooPerms" href="developer/compiling.html"/>
 			<item name="Code style" href="developer/codestyle.html"/>
 			<item name="Javadocs" href="apidocs/index.html"/>
-			<item name="Doxygen" href="doxygen/index.html"/>
+			<item name="FAQ" href="developer/faq.html"/>
 		</menu>
 		<menu name="Generated Reports" ref="reports"/>
 	</body>

@@ -20,7 +20,6 @@ import com.chrisgward.mooperms.commands.MooPermsCommandExecutor;
 import com.chrisgward.mooperms.configuration.Configuration;
 import com.chrisgward.mooperms.storage.Group;
 import com.chrisgward.mooperms.storage.User;
-import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.Command;

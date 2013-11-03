@@ -33,4 +33,12 @@ public class Group implements IGroup {
 	public List<String> getAllPermissions() {
 		return null;
 	}
+
+	public void addPermission(String permission) {
+
+	}
+
+	public void removePermission(String permission) {
+
+	}
 }

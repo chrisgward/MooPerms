@@ -16,9 +16,11 @@
 package com.chrisgward.mooperms.configuration.groups;
 
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class Group {
 	@Getter Map<String, Object> info = new LinkedHashMap<>();
