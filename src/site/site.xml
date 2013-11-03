@@ -21,6 +21,15 @@
 		<version>1.3.0</version>
 	</skin>
 
+	<custom>
+		<fluidoSkin>
+			<googleSearch>
+				<sitesearch>http://mooperms.chrisgward.com/</sitesearch>
+			</googleSearch>
+			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+		</fluidoSkin>
+	</custom>
+
 	<body>
 		<links>
 			<item name="BukkitDev" href="http://dev.bukkit.org/bukkit-plugins/mooperms/"/>
