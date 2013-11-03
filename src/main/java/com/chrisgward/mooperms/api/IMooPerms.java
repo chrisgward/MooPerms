@@ -17,8 +17,6 @@ package com.chrisgward.mooperms.api;
 
 import com.chrisgward.mooperms.api.storage.IGroup;
 import com.chrisgward.mooperms.api.storage.IUser;
-import com.chrisgward.mooperms.api.storage.IWorld;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public interface IMooPerms {
