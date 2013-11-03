@@ -1,0 +1,27 @@
+	---------
+	Compiling
+	---------
+
+Compiling MooPerms
+
+	To compile MooPerms, you will need {{{http://maven.apache.org}Maven}}
+
+* Creating a Jar
+
+	The command to create a jar of MooPerms is
+
++--
+mvn package
++--
+
+	The jar can then be found in as target/MooPerms-version.jar
+
+* Creating the documentation website
+
+	If you wish to generate this website as well, you will need to use the command
+
++--
+mvn package site
++--
+
+	Note: Doxygen must be installed prior to this, with the doxygen variable located within PATH.

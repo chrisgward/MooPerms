@@ -8,36 +8,70 @@
 	<artifactId>MooPerms</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<contributors>
-		<contributor>
+	<name>MooPerms</name>
+	<description>Permissions Manager for Bukkit</description>
+	<url>http://mooperms.com</url>
+
+	<issueManagement>
+		<system>CurseForge</system>
+		<url>http://dev.bukkit.org/bukkit-plugins/mooperms/tickets/</url>
+	</issueManagement>
+
+	<scm>
+		<url>https://github.com/chrisgward/MooPerms</url>
+		<connection>scm:https://github.com/chrisgward/MooPerms.git</connection>
+		<developerConnection>scm:git@github.com:chrisgward/MooPerms.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<developers>
+		<developer>
 			<name>Chris Ward</name>
 			<url>http://chrisgward.com</url>
 			<email>chris@chrisgward.com</email>
-		</contributor>
-	</contributors>
+		</developer>
+	</developers>
 
 	<ciManagement>
 		<system>jenkins</system>
-		<url>https://github.com/chrisgward/MooPerms</url>
+		<url>https://ci.chrisgward.com/job/MooPerms</url>
 	</ciManagement>
 
 	<licenses>
 		<license>
 			<name>GNU GPL v3</name>
-			<url>http://www.gnu.org/copyleft/gpl.html</url>
+			<url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
 		</license>
 	</licenses>
+
+	<!-- These are here for the JavaDoc plugin -->
+	<inceptionYear>2013</inceptionYear>
+	<organization>
+		<name>MooPerms</name>
+		<url>http://mooperms.com</url>
+	</organization>
 
 	<repositories>
 		<repository>
 			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public</url>
+			<url>http://repo.bukkit.org/content/repositories/public</url>
 		</repository>
 		<repository>
 			<id>Plugin Metrics</id>
 			<url>http://repo.mcstats.org/content/repositories/public</url>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>doodleproject-repo</id>
+			<name>DoodleProject Maven 2 Repository</name>
+			<url>http://doodleproject.sourceforge.net/maven2/release</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<dependency>
@@ -104,9 +138,10 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.3</version>
 			</plugin>
+
 		</plugins>
 		<resources>
 			<resource>
@@ -124,6 +159,49 @@
 			</resource>
 		</resources>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<description>Javadoc API reference</description>
+					<groups>
+						<group>
+							<title>API classes</title>
+							<packages>com.chrisgward.mooperms.api.*:com.chrisgward.mooperms.api</packages>
+						</group>
+						<group>
+							<title>Internal classes</title>
+							<packages>com.chrisgward.mooperms.*:com.chrisgward.mooperms</packages>
+						</group>
+					</groups>
+				</configuration>
+			</plugin>
+			<!--plugin>
+				<groupId>net.sf.doodleproject</groupId>
+				<artifactId>doxygen-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<executable>doxygen</executable>
+					<alphabeticalIndex>true</alphabeticalIndex>
+					<generateHtml>true</generateHtml>
+					<inputDirectory>${basedir}/src/main/java</inputDirectory>
+					<filePatterns>*.java</filePatterns>
+					<recursive>true</recursive>
+					<outputDirectory>${project.build.directory}/site/doxygen</outputDirectory>
+				</configuration>
+			</plugin-->
+		</plugins>
+	</reporting>
+
 
 	<properties>
 		<build.number>custom</build.number>

@@ -1,0 +1,28 @@
+	-------------------
+	Installing MooPerms
+	-------------------
+
+Installing MooPerms
+
+* Download MooPerms
+
+	First, you should decide whether to run Development Builds or Stable Builds.
+
+** Development Builds
+
+	A development build is a build hot-off-the-press with the very latest features. However, they are also more prone to bugs.\
+	We do not recommend the use of development builds on production servers. Use at own risk\
+	Development builds can be retrieved from {{{http://ci.chrisgward.com/job/MooPerms/}Jenkins}}
+
+** Stable Builds
+
+	A stable build is tried and tested and found to have very few to no bugs. However, these don't have the latest features.\
+	Stable builds can be retrieved from {{{http://dev.bukkit.org/bukkit-plugins/mooperms/files/}BukkitDev}}
+
+* Install MooPerms
+
+	Installation of MooPerms is just like any other plugin. Put the jar in your Bukkit server's plugins directory and restart the server.
+
+* Configure MooPerms
+
+    Please see the {{{./configuration/index.html}configuration}} page for information on configuration
