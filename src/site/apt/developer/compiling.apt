@@ -23,5 +23,3 @@ mvn package
 +--
 mvn package site
 +--
-
-	Note: Doxygen must be installed prior to this, with the doxygen variable located within PATH.
