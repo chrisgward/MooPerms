@@ -16,6 +16,7 @@
 package com.chrisgward.mooperms.listener;
 
 import com.chrisgward.mooperms.MooPerms;
+import com.chrisgward.mooperms.storage.User;
 import lombok.AllArgsConstructor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,7 +30,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerLogin(PlayerLoginEvent e) {
-		instance.getUser(e.getPlayer()).updatePermissions(e.getPlayer());
+		((com.chrisgward.mooperms.context.User)instance.getUser(e.getPlayer().getName())).getUser().updatePermissions();
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)

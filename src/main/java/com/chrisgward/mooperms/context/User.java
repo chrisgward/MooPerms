@@ -26,7 +26,7 @@ public class User implements IUser {
 
 	@Getter private final String name;
 	private final World world;
-	private final com.chrisgward.mooperms.storage.User user;
+	@Getter private final com.chrisgward.mooperms.storage.User user;
 
 	@Override
 	public IGroup getGroup() {

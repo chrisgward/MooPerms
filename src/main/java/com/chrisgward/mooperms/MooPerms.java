@@ -156,7 +156,6 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		}
 	}
 
-	@Override
 	public void showError(Exception exception, boolean isDebug) {
 
 	}
