@@ -49,43 +49,46 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	static MooPerms instance;
 
 	public void onEnable() {
-		instance = this;
-
-		I18n.load();
-
-		configuration = new Configuration(this);
 		try {
+			instance = this;
+
+			configuration = new Configuration(this);
 			configuration.loadConfiguration();
-		} catch (Exception e) {
-			configuration = null;
-			showError(e, true);
-			lock = true;
-		}
 
-		String locale = configuration.getConfig().getLocale();
-		if (locale != null) {
-			I18n.setLocale(locale);
-		}
+			I18n.load();
 
-		if (metrics == null) {
-			try {
-				metrics = new Metrics(this);
-				metrics.start();
-			} catch (IOException e) {
-				showError(e, false);
+			String locale = configuration.getConfig().getLocale();
+			if (locale != null) {
+				I18n.setLocale(locale);
 			}
-		}
 
-		for (Map.Entry<String, com.chrisgward.mooperms.configuration.groups.Group> group : getConfiguration().getGroups().getGroups().entrySet()) {
-			if (group.getValue().isDefault())
-				defaultGroup = group.getKey();
-		}
+			if (metrics == null) {
+				try {
+					metrics = new Metrics(this);
+					metrics.start();
+				} catch (IOException e) {
+					showError(e, false);
+				}
+			}
 
-		if (defaultGroup == null) {
-			throw new RuntimeException("No default group.");
-		}
+			for (Map.Entry<String, com.chrisgward.mooperms.configuration.groups.Group> group : getConfiguration().getGroups().getGroups().entrySet()) {
+				if(group.getValue().isDefault())
+					if(defaultGroup == null)
+						defaultGroup = group.getKey();
+					else
+						throw new RuntimeException("More than one default group listed!");
+			}
 
-		userMap = new HashMap<>();
+			if (defaultGroup == null) {
+				throw new RuntimeException("No default group.");
+			}
+
+			userMap = new HashMap<>();
+			groupMap = new HashMap<>();
+		} catch (Exception e) {
+			lock = true;
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void onDisable() {
@@ -134,10 +137,44 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		disposeUser(player.getName());
 	}
 
+
+
+	public void debug(String text) {
+		if (getConfiguration().getConfig().isDebug()) {
+			getLogger().info(text);
+		}
+	}
+
+	public void showError(Exception exception, boolean isDebug) {
+		if(getConfiguration().getConfig().isDebug() || !isDebug)
+			getLogger().log(Level.SEVERE, exception.getMessage(), exception);
+	}
+
+	public void updatePermissions(final User user) {
+		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			@Override
+			public void run() {
+				user.updatePermissions();
+			}
+		});
+	}
+
+	public void updatePermissions(final String[] users) {
+		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			@Override
+			public void run() {
+				for(String player : users) {
+					((User)getUser(player)).updatePermissions();
+				}
+			}
+		});
+	}
+
 	private Map<String, Group> groupMap = new HashMap<>();
+
 	@Override
 	public IGroup getGroup(String name) {
-		return null;
+		return new com.chrisgward.mooperms.context.Group(this, name, groupMap.get(name), null);
 	}
 
 	@Override
@@ -147,16 +184,6 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 
 	@Override
 	public void createGroup(String name) {
-
-	}
-
-	public void debug(String text) {
-		if (getConfiguration().getConfig().isDebug()) {
-			getLogger().info(text);
-		}
-	}
-
-	public void showError(Exception exception, boolean isDebug) {
 
 	}
 }

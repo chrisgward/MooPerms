@@ -43,14 +43,16 @@ public interface IUser {
 	/**
 	 * Adds a non-primary(sub) group to a player
 	 * @param group Group to add
+	 * @throws NullPointerException Thrown if the group does not exist
 	 */
-	void addSubgroup(IGroup group);
+	void addSubgroup(String group);
 
 	/**
 	 * Removes a non-primary(sub) group to a player
-	 * @param group
+	 * @param group Group to remove
+	 * * @throws NullPointerException Thrown if the group does not exist or if the player is not in the group.
 	 */
-	void removeSubgroup(IGroup group);
+	void removeSubgroup(String group);
 
 	/**
 	 * Gets the permissions applied directly to the player in the world context.

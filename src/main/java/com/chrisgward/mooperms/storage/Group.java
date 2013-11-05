@@ -17,32 +17,29 @@ package com.chrisgward.mooperms.storage;
 
 import com.chrisgward.mooperms.api.storage.IGroup;
 import com.chrisgward.mooperms.api.storage.IUser;
-import org.bukkit.*;
-import org.bukkit.World;
 
 import java.util.List;
 
 public class Group {
 
-	@SuppressWarnings("unchecked")
-	public List<Group> getInheritance() {
+	public String[] getInheritance() {
 		return null;
 	}
 
-	public List<String> getPermissions() {
+	public String[] getPermissions() {
 		return null;
 	}
 
-	public List<String> getAllPermissions() {
+	public String[] getAllPermissions() {
 		return null;
 	}
 
-	public List<IUser> getUsers() {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	public String[] getUsers() {
+		return null;
 	}
 
-	public List<IUser> getUsers(World world) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	public String[] getUsers(World world) {
+		return null;
 	}
 
 	public void addPermission(String permission) {
@@ -50,7 +47,7 @@ public class Group {
 	}
 
 	public void addPermission(String permission, World world) {
-		//To change body of implemented methods use File | Settings | File Templates.
+
 	}
 
 	public void removePermission(String permission) {
@@ -58,6 +55,18 @@ public class Group {
 	}
 
 	public void removePermission(String permission, World world) {
-		//To change body of implemented methods use File | Settings | File Templates.
+
+	}
+
+	public String[] getInheritance(World world) {
+		return null;
+	}
+
+	public String[] getPermissions(World world) {
+		return null;
+	}
+
+	public String[] getAllPermissions(World world) {
+		return new String[0];
 	}
 }

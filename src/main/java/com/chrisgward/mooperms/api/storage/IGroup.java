@@ -19,10 +19,10 @@ import java.util.List;
 
 public interface IGroup {
 	String getName();
-	List<? extends IGroup> getInheritance();
-	List<String> getPermissions();
-	List<String> getAllPermissions();
-	List<IUser> getUsers();
+	String[] getInheritance();
+	String[] getPermissions();
+	String[] getAllPermissions();
+	String[] getUsers();
 	void addPermission(String permission);
 	void removePermission(String permission);
 }

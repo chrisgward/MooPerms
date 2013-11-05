@@ -68,11 +68,11 @@ public class User {
 	}
 
 	public String[] getPermissions() {
-		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+		return new String[0];
 	}
 
 	public String[] getPermissions(String world) {
-		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+		return new String[0];
 	}
 
 	public String[] getAllPermissions() {
@@ -87,7 +87,7 @@ public class User {
 	}
 
 	public String[] getAllPermissions(String world) {
-		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+		return new String[0];
 	}
 
 	public void updatePermissions() {
@@ -133,6 +133,7 @@ public class User {
 	}
 
 	public void addPermission(String permission) {
+
 	}
 
 	public void addPermission(String permission, com.chrisgward.mooperms.storage.World world) {
@@ -152,6 +153,22 @@ public class User {
 	}
 
 	public void setGroup(String group, com.chrisgward.mooperms.storage.World world) {
+
+	}
+
+	public void addSubgroup(String group) {
+
+	}
+
+	public void removeSubgroup(String group) {
+
+	}
+
+	public void addSubgroup(String group, com.chrisgward.mooperms.storage.World world) {
+
+	}
+
+	public void removeSubgroup(String group, com.chrisgward.mooperms.storage.World world) {
 
 	}
 }

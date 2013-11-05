@@ -22,84 +22,70 @@ import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class User implements IUser {
+import java.util.List;
+
+public class Group implements IGroup {
 
 	@Getter private final String name;
 	private final World world;
-	@Getter private final com.chrisgward.mooperms.storage.User user;
+	private final com.chrisgward.mooperms.storage.Group group;
 	private final MooPerms instance;
 
-	@Override
-	public IGroup getGroup() {
-		if(world == null)
-			return user.getGroup();
-		return user.getGroup(world.getName());
+	public Group(MooPerms instance, String name, com.chrisgward.mooperms.storage.Group group, World world) {
+		this.name = name;
+		this.world = world;
+		this.group = group;
+		this.instance = instance;
 	}
 
-	@Override
-	public IGroup[] getSubgroups() {
-		if(world == null)
-			return user.getSubgroups();
-	    return user.getSubgroups(world.getName());
-	}
 
 	@Override
-	public void addSubgroup(String group) {
+	public String[] getInheritance() {
 		if(world == null)
-			user.addSubgroup(group);
+			return group.getInheritance();
 		else
-			user.addSubgroup(group, world);
-		instance.updatePermissions(user);
-	}
-
-	@Override
-	public void removeSubgroup(String group) {
-		if(world == null)
-			user.removeSubgroup(group);
-		else
-			user.removeSubgroup(group, world);
-		instance.updatePermissions(user);
+			return group.getInheritance(world);
 	}
 
 	@Override
 	public String[] getPermissions() {
 		if(world == null)
-			return user.getPermissions();
-		return user.getPermissions(world.getName());
+			return group.getPermissions();
+		else
+			return group.getPermissions(world);
 	}
 
 	@Override
 	public String[] getAllPermissions() {
 		if(world == null)
-			return user.getAllPermissions();
-		return user.getAllPermissions(world.getName());
+			return group.getAllPermissions();
+		else
+			return group.getAllPermissions(world);
+	}
+
+	@Override
+	public String[] getUsers() {
+		if(world == null)
+			return group.getUsers();
+		else
+			return group.getUsers(world);
 	}
 
 	@Override
 	public void addPermission(String permission) {
 		if(world == null)
-			user.addPermission(permission);
+			group.addPermission(permission);
 		else
-			user.addPermission(permission, world);
-		instance.updatePermissions(user);
+			group.addPermission(permission, world);
+		instance.updatePermissions(getUsers());
 	}
 
 	@Override
 	public void removePermission(String permission) {
 		if(world == null)
-			user.removePermission(permission);
+			group.removePermission(permission);
 		else
-			user.removePermission(permission, world);
-		instance.updatePermissions(user);
-	}
-
-	@Override
-	public void setGroup(String group) {
-		if(world == null)
-			user.setGroup(group);
-		else
-			user.setGroup(group, world);
-		instance.updatePermissions(user);
+			group.removePermission(permission, world);
+		instance.updatePermissions(getUsers());
 	}
 }
