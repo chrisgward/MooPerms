@@ -17,14 +17,35 @@ package com.chrisgward.mooperms.api;
 
 import com.chrisgward.mooperms.api.storage.IGroup;
 import com.chrisgward.mooperms.api.storage.IUser;
-import org.bukkit.entity.Player;
+import com.chrisgward.mooperms.api.storage.IWorld;
 
 public interface IMooPerms {
+	/**
+	 * Gets a user by name, any methods applied to this method will apply to the global context
+	 * @param name Name of user
+	 * @return User object, null if user does not exist
+	 */
 	IUser getUser(String name);
 
-	IUser getUser(Player player);
-
+	/**
+	 * Gets a group by name, any methods applied to this method will apply to the global context
+	 * @param name Name of group
+	 * @return Group object, null if group does not exist.
+	 */
 	IGroup getGroup(String name);
 
-	void showError(Exception exception, boolean isDebug);
+	/**
+	 * Gets a world by name, any methods applied to this method will apply to the world parameter's context.
+	 * @param world
+	 * @return
+	 */
+	IWorld getWorld(String world);
+
+	/**
+	 * Creates a group
+	 *
+	 * @param name
+	 * @return
+	 */
+	void createGroup(String name);
 }

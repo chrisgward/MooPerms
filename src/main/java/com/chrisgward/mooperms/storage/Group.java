@@ -16,10 +16,13 @@
 package com.chrisgward.mooperms.storage;
 
 import com.chrisgward.mooperms.api.storage.IGroup;
+import com.chrisgward.mooperms.api.storage.IUser;
+import org.bukkit.*;
+import org.bukkit.World;
 
 import java.util.List;
 
-public class Group implements IGroup {
+public class Group {
 
 	@SuppressWarnings("unchecked")
 	public List<Group> getInheritance() {
@@ -34,11 +37,27 @@ public class Group implements IGroup {
 		return null;
 	}
 
+	public List<IUser> getUsers() {
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	public List<IUser> getUsers(World world) {
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
 	public void addPermission(String permission) {
 
 	}
 
+	public void addPermission(String permission, World world) {
+		//To change body of implemented methods use File | Settings | File Templates.
+	}
+
 	public void removePermission(String permission) {
 
+	}
+
+	public void removePermission(String permission, World world) {
+		//To change body of implemented methods use File | Settings | File Templates.
 	}
 }

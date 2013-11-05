@@ -16,68 +16,85 @@
 package com.chrisgward.mooperms.storage;
 
 import com.chrisgward.mooperms.MooPerms;
+import com.chrisgward.mooperms.api.storage.IGroup;
 import com.chrisgward.mooperms.api.storage.IUser;
 import com.chrisgward.mooperms.configuration.users.World;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
+import sun.org.mozilla.javascript.commonjs.module.Require;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class User implements IUser {
+public class User {
 	private final MooPerms instance;
-	private com.chrisgward.mooperms.configuration.users.User user;
+	@Getter private final String name;
+	private final com.chrisgward.mooperms.configuration.users.User user;
 
-	public User(MooPerms instance, com.chrisgward.mooperms.configuration.users.User config) {
+	public User(MooPerms instance, String name, com.chrisgward.mooperms.configuration.users.User user) {
 		this.instance = instance;
+		this.name = name;
 		this.user = user;
 	}
 
-	@Override
-	public Group getGroup() {
+	public IGroup getGroup() {
 		return instance.getGroup(user.getGroup());
 	}
 
-	@Override
-	public Group getGroup(Player player) {
+	public IGroup getGroup(String worldName) {
 		Map<String, World> worlds = user.getWorlds();
-		String worldname = player.getWorld().getName().toLowerCase();
-		if (worlds != null && worlds.containsKey(worldname)) {
-			World world = worlds.get(worldname);
-
-			if (world.getGroup() != null)
-				return instance.getGroup(world.getGroup());
+		for(Map.Entry<String, World> world : worlds.entrySet()) {
+			if(world.getKey().equalsIgnoreCase(worldName)) {
+				String group = world.getValue().getGroup();
+				if(group != null) {
+					return instance.getWorld(world.getKey()).getGroup(group);
+				}
+			}
 		}
-		return getGroup();
+		return null;
 	}
 
-	@Override
-	public Group[] getSubgroups() {
-		return new Group[0];
+	public IGroup[] getSubgroups() {
+		return new IGroup[0];
 	}
 
-	@Override
+	public IGroup[] getSubgroups(String world) {
+		return new IGroup[0];
+	}
+
 	public String[] getPermissions() {
 		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
-	@Override
+	public String[] getPermissions(String world) {
+		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
 	public String[] getAllPermissions() {
 		Set<String> perms = new LinkedHashSet<>();
 		perms.addAll(Arrays.asList(getPermissions()));
 		perms.addAll(getGroup().getAllPermissions());
-		for (Group subgroup : getSubgroups()) {
+		for (IGroup subgroup : getSubgroups()) {
 			perms.addAll(subgroup.getAllPermissions());
 		}
 
 		return perms.toArray(new String[perms.size()]);
 	}
 
+	public String[] getAllPermissions(String world) {
+		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+	}
 
-	public void updatePermissions(Player player) {
+	public void updatePermissions() {
+		Player player = instance.getServer().getPlayer(getName());
+		if(player == null) {
+			return;
+		}
 		String[] permissions = getAllPermissions();
 
 		Set<PermissionAttachmentInfo> effectivePerms = player.getEffectivePermissions();
@@ -109,7 +126,9 @@ public class User implements IUser {
 		}
 
 		player.recalculatePermissions();
+	}
 
-
+	public IUser getInContext(String world) {
+		return new com.chrisgward.mooperms.context.User(getName(), (com.chrisgward.mooperms.storage.World)instance.getWorld(world), this);
 	}
 }

@@ -16,6 +16,9 @@
 package com.chrisgward.mooperms;
 
 import com.chrisgward.mooperms.api.IMooPerms;
+import com.chrisgward.mooperms.api.storage.IGroup;
+import com.chrisgward.mooperms.api.storage.IUser;
+import com.chrisgward.mooperms.api.storage.IWorld;
 import com.chrisgward.mooperms.commands.MooPermsCommandExecutor;
 import com.chrisgward.mooperms.configuration.Configuration;
 import com.chrisgward.mooperms.storage.Group;
@@ -106,9 +109,9 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	private Map<String, User> userMap = new HashMap<>();
 
 	@Override
-	public User getUser(String name) {
+	public IUser getUser(String name) {
 		if (userMap.containsKey(name))
-			return userMap.get(name);
+			return userMap.get(name).getInContext(null);
 
 		com.chrisgward.mooperms.configuration.users.User config = getConfiguration().getUsers().getUsers().get(name);
 
@@ -117,15 +120,10 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 			config.setGroup(getDefaultGroup());
 		}
 
-		User user = new User(this, config);
+		User user = new User(this, name, config);
 		userMap.put(name, user);
 
-		return user;
-	}
-
-	@Override
-	public User getUser(Player player) {
-		return getUser(player.getName());
+		return user.getInContext(null);
 	}
 
 	public void disposeUser(String name) {
@@ -138,8 +136,18 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 
 	private Map<String, Group> groupMap = new HashMap<>();
 	@Override
-	public Group getGroup(String name) {
+	public IGroup getGroup(String name) {
 		return null;
+	}
+
+	@Override
+	public IWorld getWorld(String world) {
+		return null;
+	}
+
+	@Override
+	public void createGroup(String name) {
+
 	}
 
 	public void debug(String text) {

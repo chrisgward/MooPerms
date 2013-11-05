@@ -15,7 +15,28 @@
 
 package com.chrisgward.mooperms.storage;
 
+import com.chrisgward.mooperms.api.storage.IGroup;
+import com.chrisgward.mooperms.api.storage.IUser;
 import com.chrisgward.mooperms.api.storage.IWorld;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
 
-public class World implements IWorld {
+@RequiredArgsConstructor
+public class World {
+
+	@Getter private final String name;
+
+	public IUser getUser(String name) {
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	public IUser getUser(Player player) {
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	public IGroup getGroup(String name) {
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
 }

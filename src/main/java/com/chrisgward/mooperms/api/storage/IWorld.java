@@ -16,4 +16,7 @@
 package com.chrisgward.mooperms.api.storage;
 
 public interface IWorld {
+	String getName();
+	public IUser getUser(String name);
+	public IGroup getGroup(String name);
 }

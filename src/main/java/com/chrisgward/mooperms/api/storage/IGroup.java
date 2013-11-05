@@ -18,9 +18,11 @@ package com.chrisgward.mooperms.api.storage;
 import java.util.List;
 
 public interface IGroup {
+	String getName();
 	List<? extends IGroup> getInheritance();
-
 	List<String> getPermissions();
-
 	List<String> getAllPermissions();
+	List<IUser> getUsers();
+	void addPermission(String permission);
+	void removePermission(String permission);
 }
