@@ -43,6 +43,16 @@ public class User implements IUser {
 	}
 
 	@Override
+	public void addSubgroup(IGroup group) {
+
+	}
+
+	@Override
+	public void removeSubgroup(IGroup group) {
+
+	}
+
+	@Override
 	public String[] getPermissions() {
 		if(world == null)
 			return user.getPermissions();

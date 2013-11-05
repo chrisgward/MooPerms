@@ -131,4 +131,27 @@ public class User {
 	public IUser getInContext(String world) {
 		return new com.chrisgward.mooperms.context.User(getName(), (com.chrisgward.mooperms.storage.World)instance.getWorld(world), this);
 	}
+
+	public void addPermission(String permission) {
+	}
+
+	public void addPermission(String permission, com.chrisgward.mooperms.storage.World world) {
+
+	}
+
+	public void removePermission(String permission) {
+
+	}
+
+	public void removePermission(String permission, com.chrisgward.mooperms.storage.World world) {
+
+	}
+
+	public void setGroup(String group) {
+
+	}
+
+	public void setGroup(String group, com.chrisgward.mooperms.storage.World world) {
+
+	}
 }
