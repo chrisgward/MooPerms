@@ -78,9 +78,9 @@ public class User {
 	public String[] getAllPermissions() {
 		Set<String> perms = new LinkedHashSet<>();
 		perms.addAll(Arrays.asList(getPermissions()));
-		perms.addAll(getGroup().getAllPermissions());
+		perms.addAll(Arrays.asList(getGroup().getAllPermissions()));
 		for (IGroup subgroup : getSubgroups()) {
-			perms.addAll(subgroup.getAllPermissions());
+			perms.addAll(Arrays.asList(subgroup.getAllPermissions()));
 		}
 
 		return perms.toArray(new String[perms.size()]);
@@ -129,7 +129,7 @@ public class User {
 	}
 
 	public IUser getInContext(String world) {
-		return new com.chrisgward.mooperms.context.User(getName(), (com.chrisgward.mooperms.storage.World)instance.getWorld(world), this);
+		return new com.chrisgward.mooperms.context.User(instance, getName(), this, (com.chrisgward.mooperms.storage.World)instance.getWorld(world));
 	}
 
 	public void addPermission(String permission) {

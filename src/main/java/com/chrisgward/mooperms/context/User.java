@@ -22,13 +22,19 @@ import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class User implements IUser {
 
 	@Getter private final String name;
 	private final World world;
 	@Getter private final com.chrisgward.mooperms.storage.User user;
 	private final MooPerms instance;
+
+	public User(MooPerms instance, String name, com.chrisgward.mooperms.storage.User user, World world) {
+		this.name = name;
+		this.world = world;
+		this.user = user;
+		this.instance = instance;
+	}
 
 	@Override
 	public IGroup getGroup() {
