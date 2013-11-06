@@ -16,9 +16,9 @@
 package com.chrisgward.mooperms;
 
 import com.chrisgward.mooperms.api.IMooPerms;
-import com.chrisgward.mooperms.api.storage.IGroup;
-import com.chrisgward.mooperms.api.storage.IUser;
-import com.chrisgward.mooperms.api.storage.IWorld;
+import com.chrisgward.mooperms.api.IGroup;
+import com.chrisgward.mooperms.api.IUser;
+import com.chrisgward.mooperms.api.IWorld;
 import com.chrisgward.mooperms.commands.MooPermsCommandExecutor;
 import com.chrisgward.mooperms.configuration.Configuration;
 import com.chrisgward.mooperms.storage.Group;
@@ -189,5 +189,15 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	@Override
 	public void createGroup(String name) {
 
+	}
+
+	@Override
+	public void removeGroup(String name) {
+
+	}
+
+	@Override
+	public String[] getGroups() {
+		return new String[0];
 	}
 }

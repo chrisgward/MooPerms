@@ -13,12 +13,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.chrisgward.mooperms.api.storage;
+package com.chrisgward.mooperms.api;
 
 public interface IWorld {
+	/**
+	 * Gets the name of the world context.
+	 * @return Name
+	 */
 	String getName();
 
+	/**
+	 * Gets a user object within the world context
+	 * @param name Name of the user
+	 * @return User object
+	 */
 	public IUser getUser(String name);
 
+	/**
+	 * Gets a group object within the world context
+	 * @param name Name of the group
+	 * @return Group object
+	 */
 	public IGroup getGroup(String name);
 }

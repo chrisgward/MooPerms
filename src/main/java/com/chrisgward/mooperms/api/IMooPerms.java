@@ -15,10 +15,6 @@
 
 package com.chrisgward.mooperms.api;
 
-import com.chrisgward.mooperms.api.storage.IGroup;
-import com.chrisgward.mooperms.api.storage.IUser;
-import com.chrisgward.mooperms.api.storage.IWorld;
-
 public interface IMooPerms {
 	/**
 	 * Gets a user by name, any methods applied to this method will apply to the global context
@@ -38,8 +34,9 @@ public interface IMooPerms {
 
 	/**
 	 * Gets a world by name, any methods applied to this method will apply to the world parameter's context.
+	 * Use getUser(name) or getGroup(name) to get/set attributes in the global context.
 	 *
-	 * @param world
+	 * @param world World context to get
 	 * @return
 	 */
 	IWorld getWorld(String world);
@@ -47,8 +44,22 @@ public interface IMooPerms {
 	/**
 	 * Creates a group
 	 *
-	 * @param name
-	 * @return
+	 * @param name Name of the group to create
+     * @throws IllegalArgumentException If the group already exists
 	 */
 	void createGroup(String name);
+
+	/**
+	 * Deletes a group
+	 * Any players in this group will be moved to the default group (TODO)
+	 *
+	 * @param name Group to delete
+	 */
+	void removeGroup(String name);
+
+	/**
+	 * Get the names of all registered groups on the server
+	 * @return Group names
+	 */
+	String[] getGroups();
 }

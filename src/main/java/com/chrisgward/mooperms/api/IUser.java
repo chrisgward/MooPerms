@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.chrisgward.mooperms.api.storage;
+package com.chrisgward.mooperms.api;
 
 public interface IUser {
 	/**
@@ -28,7 +28,7 @@ public interface IUser {
 	 *
 	 * @return Group
 	 */
-	IGroup getGroup();
+	String getGroup();
 
 	/**
 	 * Sets the player's primary group
@@ -38,11 +38,17 @@ public interface IUser {
 	void setGroup(String group);
 
 	/**
-	 * Gets the player's non-primary(sub) groups
+	 * Gets the player's non-primary(sub) groups in the specified context
 	 *
 	 * @return Subgroups
 	 */
-	IGroup[] getSubgroups();
+	String[] getSubgroups();
+
+	/**
+	 * Gets the player's non-primary(sub) groups in both the specified context and in the global context
+	 * @return
+	 */
+	String[] getAllSubgroups();
 
 	/**
 	 * Adds a non-primary(sub) group to a player
@@ -56,13 +62,13 @@ public interface IUser {
 	 * Removes a non-primary(sub) group to a player
 	 *
 	 * @param group Group to remove
-	 *              * @throws NullPointerException Thrown if the group does not exist or if the player is not in the group.
+	 * @throws NullPointerException Thrown if the group does not exist or if the player is not in the group.
 	 */
 	void removeSubgroup(String group);
 
 	/**
-	 * Gets the permissions applied directly to the player in the world context.
-	 * Does not include permissions applied directly to the player unless in the global context.
+	 * Gets the permissions applied directly to the player in the specified context.
+	 * Does not include permissions in the global context
 	 * Does not include permissions applied to the groups/subgroups the player inherits.
 	 *
 	 * @return List of permissions
@@ -70,27 +76,35 @@ public interface IUser {
 	String[] getPermissions();
 
 	/**
-	 * Gets the permissions applied to the player, groups and subgroups in the world context.
-	 * Includes permissions applied to the player in the global context, as well as permissions applied to the groups/subgroups in both the global and world context.
+	 * Gets the permissions applied directly to the player in the specified context and in the global context.
+	 * Does not include permissions applied to groups/subgroups
 	 *
 	 * @return List of permissions
 	 */
 	String[] getAllPermissions();
 
 	/**
-	 * Adds a permission to a player in the world context
+	 * Gets the permissions applied to the player, groups and subgroups in the specified context.
+	 * Includes permissions applied to the player in the global context, as well as permissions applied to the groups/subgroups in both the global and specified context.
+	 *
+	 * @return List of permissions
+	 */
+	String[] getEffectivePermissions();
+
+	/**
+	 * Adds a permission to a player in the specified context
 	 *
 	 * @param permission Permission to add
 	 */
-	public void addPermission(String permission);
+	void addPermission(String permission);
 
 	/**
-	 * Removes a permission to a player in the world context
+	 * Removes a permission to a player in the specified context
 	 * Note: The permission will be added as a negation should the player not have the permission
 	 * Removing node.* while a player has a node.anything will remove the matching permissions (TODO)
 	 * Removing node.* while a player has no matching nodes will add a negation node of node.*
 	 *
 	 * @param permission Permission to remove
 	 */
-	public void removePermission(String permission);
+	void removePermission(String permission);
 }

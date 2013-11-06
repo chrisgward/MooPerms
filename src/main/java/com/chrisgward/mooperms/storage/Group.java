@@ -21,11 +21,11 @@ public class Group {
 		return null;
 	}
 
-	public String[] getPermissions() {
+	public String[] getInheritance(World world) {
 		return null;
 	}
 
-	public String[] getAllPermissions() {
+	public String[] getPermissions() {
 		return null;
 	}
 
@@ -53,15 +53,15 @@ public class Group {
 
 	}
 
-	public String[] getInheritance(World world) {
-		return null;
-	}
-
 	public String[] getPermissions(World world) {
 		return null;
 	}
 
 	public String[] getAllPermissions(World world) {
+		return new String[0];
+	}
+
+	public String[] getAllInheritance(World world) {
 		return new String[0];
 	}
 }

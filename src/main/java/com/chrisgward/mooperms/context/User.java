@@ -16,8 +16,8 @@
 package com.chrisgward.mooperms.context;
 
 import com.chrisgward.mooperms.MooPerms;
-import com.chrisgward.mooperms.api.storage.IGroup;
-import com.chrisgward.mooperms.api.storage.IUser;
+import com.chrisgward.mooperms.api.IGroup;
+import com.chrisgward.mooperms.api.IUser;
 import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
 
@@ -36,7 +36,7 @@ public class User implements IUser {
 	}
 
 	@Override
-	public IGroup getGroup() {
+	public String getGroup() {
 		if (world == null) {
 			return user.getGroup();
 		}
@@ -44,11 +44,20 @@ public class User implements IUser {
 	}
 
 	@Override
-	public IGroup[] getSubgroups() {
+	public String[] getSubgroups() {
 		if (world == null) {
 			return user.getSubgroups();
 		}
 		return user.getSubgroups(world.getName());
+	}
+
+	@Override
+	public String[] getAllSubgroups() {
+		if (world == null) {
+			return getSubgroups();
+		} else {
+			return user.getAllSubgroups(world.getName());
+		}
 	}
 
 	@Override
@@ -82,9 +91,17 @@ public class User implements IUser {
 	@Override
 	public String[] getAllPermissions() {
 		if (world == null) {
-			return user.getAllPermissions();
+			return user.getPermissions();
 		}
 		return user.getAllPermissions(world.getName());
+	}
+
+	@Override
+	public String[] getEffectivePermissions() {
+		if (world == null) {
+			return user.getEffectivePermissions();
+		}
+		return user.getEffectivePermissions(world.getName());
 	}
 
 	@Override

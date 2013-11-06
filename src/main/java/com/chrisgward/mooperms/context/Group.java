@@ -16,7 +16,7 @@
 package com.chrisgward.mooperms.context;
 
 import com.chrisgward.mooperms.MooPerms;
-import com.chrisgward.mooperms.api.storage.IGroup;
+import com.chrisgward.mooperms.api.IGroup;
 import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
 
@@ -45,6 +45,20 @@ public class Group implements IGroup {
 	}
 
 	@Override
+	public String[] getAllInheritance() {
+		if(world == null) {
+			return getInheritance();
+		} else {
+			return group.getAllInheritance(world);
+		}
+	}
+
+	@Override
+	public String[] getEffectiveInheritance() {
+		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	@Override
 	public String[] getPermissions() {
 		if (world == null) {
 			return group.getPermissions();
@@ -56,10 +70,15 @@ public class Group implements IGroup {
 	@Override
 	public String[] getAllPermissions() {
 		if (world == null) {
-			return group.getAllPermissions();
+			return getPermissions();
 		} else {
 			return group.getAllPermissions(world);
 		}
+	}
+
+	@Override
+	public String[] getEffectivePermissions() {
+		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	@Override

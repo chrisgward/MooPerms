@@ -16,8 +16,8 @@
 package com.chrisgward.mooperms.storage;
 
 import com.chrisgward.mooperms.MooPerms;
-import com.chrisgward.mooperms.api.storage.IGroup;
-import com.chrisgward.mooperms.api.storage.IUser;
+import com.chrisgward.mooperms.api.IGroup;
+import com.chrisgward.mooperms.api.IUser;
 import com.chrisgward.mooperms.configuration.users.World;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -40,29 +40,29 @@ public class User {
 		this.user = user;
 	}
 
-	public IGroup getGroup() {
-		return instance.getGroup(user.getGroup());
+	public String getGroup() {
+		return user.getGroup();
 	}
 
-	public IGroup getGroup(String worldName) {
+	public String getGroup(String worldName) {
 		Map<String, World> worlds = user.getWorlds();
 		for (Map.Entry<String, World> world : worlds.entrySet()) {
 			if (world.getKey().equalsIgnoreCase(worldName)) {
 				String group = world.getValue().getGroup();
 				if (group != null) {
-					return instance.getWorld(world.getKey()).getGroup(group);
+					return group;
 				}
 			}
 		}
 		return null;
 	}
 
-	public IGroup[] getSubgroups() {
-		return new IGroup[0];
+	public String[] getSubgroups() {
+		return new String[0];
 	}
 
-	public IGroup[] getSubgroups(String world) {
-		return new IGroup[0];
+	public String[] getSubgroups(String world) {
+		return new String[0];
 	}
 
 	public String[] getPermissions() {
@@ -76,9 +76,9 @@ public class User {
 	public String[] getAllPermissions() {
 		Set<String> perms = new LinkedHashSet<>();
 		perms.addAll(Arrays.asList(getPermissions()));
-		perms.addAll(Arrays.asList(getGroup().getAllPermissions()));
-		for (IGroup subgroup : getSubgroups()) {
-			perms.addAll(Arrays.asList(subgroup.getAllPermissions()));
+		perms.addAll(Arrays.asList(instance.getGroup(getGroup()).getEffectivePermissions()));
+		for (String subgroup : getSubgroups()) {
+			perms.addAll(Arrays.asList(instance.getGroup(subgroup).getAllPermissions()));
 		}
 
 		return perms.toArray(new String[perms.size()]);
@@ -168,5 +168,17 @@ public class User {
 
 	public void removeSubgroup(String group, com.chrisgward.mooperms.storage.World world) {
 
+	}
+
+	public String[] getAllSubgroups(String name) {
+		return new String[0];
+	}
+
+	public String[] getEffectivePermissions() {
+		return new String[0];
+	}
+
+	public String[] getEffectivePermissions(String name) {
+		return new String[0];
 	}
 }
