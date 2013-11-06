@@ -15,11 +15,6 @@
 
 package com.chrisgward.mooperms.storage;
 
-import com.chrisgward.mooperms.api.storage.IGroup;
-import com.chrisgward.mooperms.api.storage.IUser;
-
-import java.util.List;
-
 public class Group {
 
 	public String[] getInheritance() {

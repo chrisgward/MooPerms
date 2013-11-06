@@ -17,8 +17,6 @@ package com.chrisgward.mooperms.storage;
 
 import com.chrisgward.mooperms.api.storage.IGroup;
 import com.chrisgward.mooperms.api.storage.IUser;
-import com.chrisgward.mooperms.api.storage.IWorld;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;

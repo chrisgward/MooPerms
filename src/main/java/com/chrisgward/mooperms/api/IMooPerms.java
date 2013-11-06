@@ -22,6 +22,7 @@ import com.chrisgward.mooperms.api.storage.IWorld;
 public interface IMooPerms {
 	/**
 	 * Gets a user by name, any methods applied to this method will apply to the global context
+	 *
 	 * @param name Name of user
 	 * @return User object, null if user does not exist
 	 */
@@ -29,6 +30,7 @@ public interface IMooPerms {
 
 	/**
 	 * Gets a group by name, any methods applied to this method will apply to the global context
+	 *
 	 * @param name Name of group
 	 * @return Group object, null if group does not exist.
 	 */
@@ -36,6 +38,7 @@ public interface IMooPerms {
 
 	/**
 	 * Gets a world by name, any methods applied to this method will apply to the world parameter's context.
+	 *
 	 * @param world
 	 * @return
 	 */

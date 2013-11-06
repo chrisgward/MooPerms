@@ -22,6 +22,7 @@ import java.util.Map;
 
 public class Groups {
 	@Getter private Map<String, Group> groups = new LinkedHashMap<>();
+
 	public void setGroups(Map<String, Group> groups) {
 		this.groups = new LinkedHashMap<>(groups);
 	}

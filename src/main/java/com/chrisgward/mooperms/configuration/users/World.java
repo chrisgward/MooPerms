@@ -27,16 +27,19 @@ public class World {
 	@Getter @Setter String group;
 
 	@Getter List<String> subgroups = new LinkedList<>();
+
 	public void setSubgroups(List<String> subgroups) {
 		this.subgroups = new LinkedList<>(subgroups);
 	}
 
 	@Getter List<String> permissions = new LinkedList<>();
+
 	public void setPermissions(List<String> permissions) {
 		this.permissions = new LinkedList<>(permissions);
 	}
 
 	@Getter Map<String, Object> info = new LinkedHashMap<>();
+
 	public void setInfo(Map<String, Object> info) {
 		this.info = new LinkedHashMap<>(info);
 	}

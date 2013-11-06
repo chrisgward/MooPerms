@@ -20,11 +20,9 @@ import com.chrisgward.mooperms.api.storage.IGroup;
 import com.chrisgward.mooperms.api.storage.IUser;
 import com.chrisgward.mooperms.configuration.users.World;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
-import sun.org.mozilla.javascript.commonjs.module.Require;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -48,10 +46,10 @@ public class User {
 
 	public IGroup getGroup(String worldName) {
 		Map<String, World> worlds = user.getWorlds();
-		for(Map.Entry<String, World> world : worlds.entrySet()) {
-			if(world.getKey().equalsIgnoreCase(worldName)) {
+		for (Map.Entry<String, World> world : worlds.entrySet()) {
+			if (world.getKey().equalsIgnoreCase(worldName)) {
 				String group = world.getValue().getGroup();
-				if(group != null) {
+				if (group != null) {
 					return instance.getWorld(world.getKey()).getGroup(group);
 				}
 			}
@@ -92,7 +90,7 @@ public class User {
 
 	public void updatePermissions() {
 		Player player = instance.getServer().getPlayer(getName());
-		if(player == null) {
+		if (player == null) {
 			return;
 		}
 		String[] permissions = getAllPermissions();
@@ -129,7 +127,7 @@ public class User {
 	}
 
 	public IUser getInContext(String world) {
-		return new com.chrisgward.mooperms.context.User(instance, getName(), this, (com.chrisgward.mooperms.storage.World)instance.getWorld(world));
+		return new com.chrisgward.mooperms.context.User(instance, getName(), this, (com.chrisgward.mooperms.storage.World) instance.getWorld(world));
 	}
 
 	public void addPermission(String permission) {

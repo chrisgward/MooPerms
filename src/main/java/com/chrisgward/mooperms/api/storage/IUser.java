@@ -18,30 +18,35 @@ package com.chrisgward.mooperms.api.storage;
 public interface IUser {
 	/**
 	 * Returns the player's name
+	 *
 	 * @return Player name
 	 */
 	String getName();
 
 	/**
 	 * Returns the player's primary group
+	 *
 	 * @return Group
 	 */
 	IGroup getGroup();
 
 	/**
 	 * Sets the player's primary group
+	 *
 	 * @param group Group
 	 */
 	void setGroup(String group);
 
 	/**
 	 * Gets the player's non-primary(sub) groups
+	 *
 	 * @return Subgroups
 	 */
 	IGroup[] getSubgroups();
 
 	/**
 	 * Adds a non-primary(sub) group to a player
+	 *
 	 * @param group Group to add
 	 * @throws NullPointerException Thrown if the group does not exist
 	 */
@@ -49,8 +54,9 @@ public interface IUser {
 
 	/**
 	 * Removes a non-primary(sub) group to a player
+	 *
 	 * @param group Group to remove
-	 * * @throws NullPointerException Thrown if the group does not exist or if the player is not in the group.
+	 *              * @throws NullPointerException Thrown if the group does not exist or if the player is not in the group.
 	 */
 	void removeSubgroup(String group);
 
@@ -58,6 +64,7 @@ public interface IUser {
 	 * Gets the permissions applied directly to the player in the world context.
 	 * Does not include permissions applied directly to the player unless in the global context.
 	 * Does not include permissions applied to the groups/subgroups the player inherits.
+	 *
 	 * @return List of permissions
 	 */
 	String[] getPermissions();
@@ -65,12 +72,14 @@ public interface IUser {
 	/**
 	 * Gets the permissions applied to the player, groups and subgroups in the world context.
 	 * Includes permissions applied to the player in the global context, as well as permissions applied to the groups/subgroups in both the global and world context.
+	 *
 	 * @return List of permissions
 	 */
 	String[] getAllPermissions();
 
 	/**
 	 * Adds a permission to a player in the world context
+	 *
 	 * @param permission Permission to add
 	 */
 	public void addPermission(String permission);
@@ -80,6 +89,7 @@ public interface IUser {
 	 * Note: The permission will be added as a negation should the player not have the permission
 	 * Removing node.* while a player has a node.anything will remove the matching permissions (TODO)
 	 * Removing node.* while a player has no matching nodes will add a negation node of node.*
+	 *
 	 * @param permission Permission to remove
 	 */
 	public void removePermission(String permission);

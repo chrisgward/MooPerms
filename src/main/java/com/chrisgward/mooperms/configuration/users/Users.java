@@ -22,6 +22,7 @@ import java.util.Map;
 
 public class Users {
 	@Getter Map<String, User> users = new LinkedHashMap<>();
+
 	public void setUsers(Map<String, User> users) {
 		this.users = new LinkedHashMap<>(users);
 	}

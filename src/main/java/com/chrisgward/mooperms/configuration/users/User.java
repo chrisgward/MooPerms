@@ -26,21 +26,25 @@ import java.util.Map;
 public class User {
 	@Getter @Setter String group;
 	@Getter List<String> subgroups = new LinkedList<>();
+
 	public void setSubgroups(List<String> subgroups) {
 		this.subgroups = new LinkedList<>(subgroups);
 	}
 
 	@Getter List<String> permissions = new LinkedList<>();
+
 	public void setPermissions(List<String> permissions) {
 		this.permissions = new LinkedList<>(permissions);
 	}
 
 	@Getter Map<String, Object> info = new LinkedHashMap<>();
+
 	public void setInfo(Map<String, Object> info) {
 		this.info = new LinkedHashMap<>(info);
 	}
 
 	@Getter Map<String, World> worlds = new LinkedHashMap<>();
+
 	public void setWorlds(Map<String, World> worlds) {
 		this.worlds = new LinkedHashMap<>(worlds);
 	}

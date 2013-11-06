@@ -24,21 +24,25 @@ import java.util.Map;
 
 public class Group {
 	@Getter Map<String, Object> info = new LinkedHashMap<>();
+
 	public void setInfo(Map<String, Object> info) {
 		this.info = new LinkedHashMap<>(info);
 	}
 
 	@Getter List<String> permissions = new LinkedList<>();
+
 	public void setPermissions(List<String> permissions) {
 		this.permissions = new LinkedList<>(permissions);
 	}
 
 	@Getter List<String> inheritance = new LinkedList<>();
+
 	public void setInheritance(List<String> inheritance) {
 		this.inheritance = new LinkedList<>(inheritance);
 	}
 
 	@Getter Map<String, World> worlds = new LinkedHashMap<>();
+
 	public void setWorlds(Map<String, World> worlds) {
 		this.worlds = new LinkedHashMap<>(worlds);
 	}

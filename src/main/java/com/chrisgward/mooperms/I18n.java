@@ -79,14 +79,18 @@ public class I18n {
 	public static String _(String key, String... args) {
 		String response = null;
 
-		if (file != null)
+		if (file != null) {
 			response = file.getProperty(key);
-		if (response == null && locale != null)
+		}
+		if (response == null && locale != null) {
 			response = locale.getProperty(key);
-		if (response == null && dfault != null)
+		}
+		if (response == null && dfault != null) {
 			response = dfault.getProperty(key);
-		if (response == null)
+		}
+		if (response == null) {
 			return i18nerr(key, args);
+		}
 
 		MessageFormat format = new MessageFormat(response);
 		return format.format(args);

@@ -72,8 +72,9 @@ public class Configuration {
 			instance.showError(e, false);
 			failed = true;
 		}
-		if (failed)
+		if (failed) {
 			throw new IOException("Could not load configuration!");
+		}
 	}
 
 	public void loadConfig() throws IOException {
@@ -134,8 +135,9 @@ public class Configuration {
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public void mkdir() throws IOException {
-		if (!folder.exists())
+		if (!folder.exists()) {
 			folder.mkdirs();
+		}
 	}
 
 	public void copyDefaults(String location) throws IOException {

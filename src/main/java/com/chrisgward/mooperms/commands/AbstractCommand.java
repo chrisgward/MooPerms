@@ -18,6 +18,6 @@ package com.chrisgward.mooperms.commands;
 import com.chrisgward.mooperms.MooPerms;
 import org.bukkit.command.CommandExecutor;
 
-public abstract class AbstractCommand implements CommandExecutor{
+public abstract class AbstractCommand implements CommandExecutor {
 	MooPerms moo;
 }

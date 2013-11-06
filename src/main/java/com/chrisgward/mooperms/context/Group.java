@@ -17,12 +17,8 @@ package com.chrisgward.mooperms.context;
 
 import com.chrisgward.mooperms.MooPerms;
 import com.chrisgward.mooperms.api.storage.IGroup;
-import com.chrisgward.mooperms.api.storage.IUser;
 import com.chrisgward.mooperms.storage.World;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 public class Group implements IGroup {
 
@@ -41,51 +37,57 @@ public class Group implements IGroup {
 
 	@Override
 	public String[] getInheritance() {
-		if(world == null)
+		if (world == null) {
 			return group.getInheritance();
-		else
+		} else {
 			return group.getInheritance(world);
+		}
 	}
 
 	@Override
 	public String[] getPermissions() {
-		if(world == null)
+		if (world == null) {
 			return group.getPermissions();
-		else
+		} else {
 			return group.getPermissions(world);
+		}
 	}
 
 	@Override
 	public String[] getAllPermissions() {
-		if(world == null)
+		if (world == null) {
 			return group.getAllPermissions();
-		else
+		} else {
 			return group.getAllPermissions(world);
+		}
 	}
 
 	@Override
 	public String[] getUsers() {
-		if(world == null)
+		if (world == null) {
 			return group.getUsers();
-		else
+		} else {
 			return group.getUsers(world);
+		}
 	}
 
 	@Override
 	public void addPermission(String permission) {
-		if(world == null)
+		if (world == null) {
 			group.addPermission(permission);
-		else
+		} else {
 			group.addPermission(permission, world);
+		}
 		instance.updatePermissions(getUsers());
 	}
 
 	@Override
 	public void removePermission(String permission) {
-		if(world == null)
+		if (world == null) {
 			group.removePermission(permission);
-		else
+		} else {
 			group.removePermission(permission, world);
+		}
 		instance.updatePermissions(getUsers());
 	}
 }

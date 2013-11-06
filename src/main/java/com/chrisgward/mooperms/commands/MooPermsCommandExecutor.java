@@ -36,13 +36,13 @@ public class MooPermsCommandExecutor implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
-		if(commandSender instanceof ConsoleCommandSender || commandSender.isOp() || commandSender.hasPermission("mooperms." + command.getName())) {
+		if (commandSender instanceof ConsoleCommandSender || commandSender.isOp() || commandSender.hasPermission("mooperms." + command.getName())) {
 			AbstractCommand executor;
-			if(executorMap.containsKey(command.getName())) {
+			if (executorMap.containsKey(command.getName())) {
 				executor = executorMap.get(command.getName());
 			} else {
 				try {
-					executor = (AbstractCommand)Class.forName("com.chrisgward.mooperms.commands.Command" + command.getName()).newInstance();
+					executor = (AbstractCommand) Class.forName("com.chrisgward.mooperms.commands.Command" + command.getName()).newInstance();
 					executor.moo = instance;
 					executorMap.put(command.getName(), executor);
 				} catch (Exception e) {

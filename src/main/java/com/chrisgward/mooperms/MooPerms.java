@@ -72,11 +72,13 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 			}
 
 			for (Map.Entry<String, com.chrisgward.mooperms.configuration.groups.Group> group : getConfiguration().getGroups().getGroups().entrySet()) {
-				if(group.getValue().isDefault())
-					if(defaultGroup == null)
+				if (group.getValue().isDefault()) {
+					if (defaultGroup == null) {
 						defaultGroup = group.getKey();
-					else
+					} else {
 						throw new RuntimeException("More than one default group listed!");
+					}
+				}
 			}
 
 			if (defaultGroup == null) {
@@ -105,6 +107,7 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	}
 
 	MooPermsCommandExecutor executor = new MooPermsCommandExecutor(this);
+
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
 		return executor.onCommand(sender, cmd, cmdLabel, args);
 	}
@@ -113,8 +116,9 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 
 	@Override
 	public IUser getUser(String name) {
-		if (userMap.containsKey(name))
+		if (userMap.containsKey(name)) {
 			return userMap.get(name).getInContext(null);
+		}
 
 		com.chrisgward.mooperms.configuration.users.User config = getConfiguration().getUsers().getUsers().get(name);
 
@@ -138,7 +142,6 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	}
 
 
-
 	public void debug(String text) {
 		if (getConfiguration().getConfig().isDebug()) {
 			getLogger().info(text);
@@ -146,8 +149,9 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	}
 
 	public void showError(Exception exception, boolean isDebug) {
-		if(getConfiguration().getConfig().isDebug() || !isDebug)
+		if (getConfiguration().getConfig().isDebug() || !isDebug) {
 			getLogger().log(Level.SEVERE, exception.getMessage(), exception);
+		}
 	}
 
 	public void updatePermissions(final User user) {
@@ -163,8 +167,8 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			@Override
 			public void run() {
-				for(String player : users) {
-					((User)getUser(player)).updatePermissions();
+				for (String player : users) {
+					((User) getUser(player)).updatePermissions();
 				}
 			}
 		});
