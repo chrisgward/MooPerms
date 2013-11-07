@@ -15,13 +15,13 @@
 
 package org.mooperms.listener;
 
-import org.mooperms.MooPerms;
 import lombok.AllArgsConstructor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.mooperms.MooPerms;
 
 @AllArgsConstructor
 public class PlayerListener implements Listener {

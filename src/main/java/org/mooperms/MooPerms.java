@@ -15,14 +15,6 @@
 
 package org.mooperms;
 
-import org.mooperms.api.IMooPerms;
-import org.mooperms.api.IGroup;
-import org.mooperms.api.IUser;
-import org.mooperms.api.IWorld;
-import org.mooperms.commands.MooPermsCommandExecutor;
-import org.mooperms.configuration.Configuration;
-import org.mooperms.storage.Group;
-import org.mooperms.storage.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.Command;
@@ -30,6 +22,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
+import org.mooperms.api.IGroup;
+import org.mooperms.api.IMooPerms;
+import org.mooperms.api.IUser;
+import org.mooperms.api.IWorld;
+import org.mooperms.commands.MooPermsCommandExecutor;
+import org.mooperms.configuration.Configuration;
+import org.mooperms.storage.Group;
+import org.mooperms.storage.User;
 
 import java.io.IOException;
 import java.util.HashMap;

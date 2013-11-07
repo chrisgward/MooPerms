@@ -15,10 +15,10 @@
 
 package org.mooperms.context;
 
+import lombok.Getter;
 import org.mooperms.MooPerms;
 import org.mooperms.api.IUser;
 import org.mooperms.storage.World;
-import lombok.Getter;
 
 public class User implements IUser {
 

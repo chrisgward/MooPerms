@@ -15,10 +15,10 @@
 
 package org.mooperms;
 
-import org.mooperms.api.IMooPerms;
 import lombok.Getter;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.plugin.Plugin;
+import org.mooperms.api.IMooPerms;
 
 import java.util.Arrays;
 
@@ -31,12 +31,12 @@ public class MooPermsVaultHook extends Permission {
 
 	public MooPermsVaultHook(Plugin plugin) {
 		this.plugin = plugin;
-		this.mooperms = (IMooPerms)plugin.getServer().getPluginManager().getPlugin("MooPerms");
+		this.mooperms = (IMooPerms) plugin.getServer().getPluginManager().getPlugin("MooPerms");
 	}
 
 	@Override
 	public boolean hasSuperPermsCompat() {
-	    return true;
+		return true;
 	}
 
 	@Override

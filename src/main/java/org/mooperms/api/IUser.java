@@ -46,6 +46,7 @@ public interface IUser {
 
 	/**
 	 * Gets the player's non-primary(sub) groups in both the specified context and in the global context
+	 *
 	 * @return
 	 */
 	String[] getAllSubgroups();

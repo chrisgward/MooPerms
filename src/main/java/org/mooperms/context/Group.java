@@ -15,10 +15,10 @@
 
 package org.mooperms.context;
 
+import lombok.Getter;
 import org.mooperms.MooPerms;
 import org.mooperms.api.IGroup;
 import org.mooperms.storage.World;
-import lombok.Getter;
 
 public class Group implements IGroup {
 
@@ -46,7 +46,7 @@ public class Group implements IGroup {
 
 	@Override
 	public String[] getAllInheritance() {
-		if(world == null) {
+		if (world == null) {
 			return getInheritance();
 		} else {
 			return group.getAllInheritance(world);

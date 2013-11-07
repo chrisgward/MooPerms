@@ -15,13 +15,13 @@
 
 package org.mooperms.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.bukkit.entity.Player;
 import org.mooperms.MooPerms;
 import org.mooperms.configuration.config.Config;
 import org.mooperms.configuration.groups.Groups;
 import org.mooperms.configuration.users.Users;
-import lombok.Getter;
-import lombok.Setter;
-import org.bukkit.entity.Player;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;

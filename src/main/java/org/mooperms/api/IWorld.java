@@ -18,12 +18,14 @@ package org.mooperms.api;
 public interface IWorld {
 	/**
 	 * Gets the name of the world context.
+	 *
 	 * @return Name
 	 */
 	String getName();
 
 	/**
 	 * Gets a user object within the world context
+	 *
 	 * @param name Name of the user
 	 * @return User object
 	 */
@@ -31,6 +33,7 @@ public interface IWorld {
 
 	/**
 	 * Gets a group object within the world context
+	 *
 	 * @param name Name of the group
 	 * @return Group object
 	 */

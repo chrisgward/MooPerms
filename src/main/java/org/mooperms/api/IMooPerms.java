@@ -45,7 +45,7 @@ public interface IMooPerms {
 	 * Creates a group
 	 *
 	 * @param name Name of the group to create
-     * @throws IllegalArgumentException If the group already exists
+	 * @throws IllegalArgumentException If the group already exists
 	 */
 	void createGroup(String name);
 
@@ -59,6 +59,7 @@ public interface IMooPerms {
 
 	/**
 	 * Get the names of all registered groups on the server
+	 *
 	 * @return Group names
 	 */
 	String[] getGroups();

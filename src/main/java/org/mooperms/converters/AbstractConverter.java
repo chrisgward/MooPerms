@@ -15,11 +15,11 @@
 
 package org.mooperms.converters;
 
+import lombok.Getter;
 import org.mooperms.MooPerms;
 import org.mooperms.configuration.config.Config;
 import org.mooperms.configuration.groups.Groups;
 import org.mooperms.configuration.users.Users;
-import lombok.Getter;
 import org.reflections.Reflections;
 
 import java.io.File;
@@ -29,10 +29,11 @@ public abstract class AbstractConverter {
 	public AbstractConverter(String folder) {
 		this.folder = folder;
 	}
+
 	public boolean canConvert() {
-		if(configDirectory != null && configDirectory.exists() && configDirectory.isDirectory()) {
+		if (configDirectory != null && configDirectory.exists() && configDirectory.isDirectory()) {
 			File lock = new File(configDirectory, ".mooperms");
-			if(!lock.exists()) {
+			if (!lock.exists()) {
 				try {
 					lock.createNewFile();
 				} catch (Exception e) {
@@ -52,19 +53,21 @@ public abstract class AbstractConverter {
 	@Getter protected Users users;
 	protected MooPerms instance;
 	@Getter protected File configDirectory;
+
 	protected abstract String getName();
+
 	private String folder;
 
 	public static boolean convert(MooPerms instance) {
 		Reflections reflections = new Reflections("com.chrisgward.mooperms");
 		Set<Class<? extends AbstractConverter>> classes = reflections.getSubTypesOf(AbstractConverter.class);
 
-		for(Class<? extends AbstractConverter> clazz : classes) {
+		for (Class<? extends AbstractConverter> clazz : classes) {
 			try {
 				AbstractConverter converter = clazz.newInstance();
 				converter.instance = instance;
 				converter.configDirectory = new File(instance.getDataFolder().getParentFile(), converter.folder);
-				if(converter.canConvert()) {
+				if (converter.canConvert()) {
 					instance.getLogger().info("Importing permissions from " + converter.getName());
 					converter.doConversion();
 					instance.getConfiguration().setUsers(converter.getUsers());

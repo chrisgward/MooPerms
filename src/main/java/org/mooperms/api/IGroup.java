@@ -39,7 +39,6 @@ public interface IGroup {
 
 	/**
 	 * Gets a list of groups this group inherits in the specified context and in the global context. Includes their inheritances and continues until the top of the tree (usually the default rank).
-	 *
 	 */
 	String[] getEffectiveInheritance();
 
@@ -60,18 +59,20 @@ public interface IGroup {
 	/**
 	 * Gets a list of permissions applied to the group in both the specified context and in the global context, as well as the permissions from inheritance.
 	 *
- 	 * @return Permissions
+	 * @return Permissions
 	 */
 	String[] getEffectivePermissions();
 
 	/**
 	 * Gets a list of users, both online and offline, of users in this group in both the global and specified contexts.
+	 *
 	 * @return
 	 */
 	String[] getUsers();
 
 	/**
 	 * Adds a permission to the group in the specified context.
+	 *
 	 * @param permission Permission to add
 	 */
 	void addPermission(String permission);
@@ -81,6 +82,7 @@ public interface IGroup {
 	 * Note: The permission will be added as a negation should the group not have the permission
 	 * Removing node.* while a group has a node.anything will remove the matching permissions (TODO)
 	 * Removing node.* while a group has no matching nodes will add a negation node of node.*
+	 *
 	 * @param permission Permission to remove
 	 */
 	void removePermission(String permission);

@@ -15,13 +15,13 @@
 
 package org.mooperms.storage;
 
-import org.mooperms.MooPerms;
-import org.mooperms.api.IUser;
-import org.mooperms.configuration.users.World;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.mooperms.MooPerms;
+import org.mooperms.api.IUser;
+import org.mooperms.configuration.users.World;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;

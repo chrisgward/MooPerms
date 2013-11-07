@@ -15,8 +15,8 @@
 
 package org.mooperms.commands;
 
-import org.mooperms.MooPerms;
 import org.bukkit.command.CommandExecutor;
+import org.mooperms.MooPerms;
 
 public abstract class AbstractCommand implements CommandExecutor {
 	MooPerms instance;

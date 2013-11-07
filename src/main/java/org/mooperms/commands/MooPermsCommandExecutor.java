@@ -15,12 +15,12 @@
 
 package org.mooperms.commands;
 
-import org.mooperms.MooPerms;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.mooperms.MooPerms;
 
 import java.util.HashMap;
 import java.util.Map;

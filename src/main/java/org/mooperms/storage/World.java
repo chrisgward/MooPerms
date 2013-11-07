@@ -15,11 +15,11 @@
 
 package org.mooperms.storage;
 
-import org.mooperms.api.IGroup;
-import org.mooperms.api.IUser;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
+import org.mooperms.api.IGroup;
+import org.mooperms.api.IUser;
 
 @RequiredArgsConstructor
 public class World {
