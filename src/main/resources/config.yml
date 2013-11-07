@@ -1,7 +1,6 @@
 mirrors:
     world:
-        world:
-        - users
-
+    - world_nether
+    - world_the_end
 
 locale: en_US

@@ -47,7 +47,7 @@ public class Group {
 		this.worlds = new LinkedHashMap<>(worlds);
 	}
 
-	private boolean dfault;
+	private boolean dfault = false;
 
 	public void setDefault(Boolean dfault) {
 		this.dfault = dfault;

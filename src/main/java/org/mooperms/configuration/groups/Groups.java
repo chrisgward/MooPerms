@@ -26,8 +26,4 @@ public class Groups {
 	public void setGroups(Map<String, Group> groups) {
 		this.groups = new LinkedHashMap<>(groups);
 	}
-
-	public Group getGroup(String name) {
-		return groups.get(name);
-	}
 }

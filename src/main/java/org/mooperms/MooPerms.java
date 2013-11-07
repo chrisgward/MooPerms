@@ -30,9 +30,11 @@ import org.mooperms.commands.MooPermsCommandExecutor;
 import org.mooperms.configuration.Configuration;
 import org.mooperms.storage.Group;
 import org.mooperms.storage.User;
+import org.mooperms.storage.World;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
@@ -181,14 +183,30 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		return new org.mooperms.context.Group(this, name, groupMap.get(name), null);
 	}
 
+	private Map<String, World> worldMap = new HashMap<>();
+
 	@Override
-	public IWorld getWorld(String world) {
-		return null;
+	public IWorld getWorld(String worldName) {
+		String mirror = getMirror(worldName);
+		if(worldMap.containsKey(mirror)) {
+			return worldMap.get(mirror);
+		}
+		else {
+			World world = new World(this, mirror);
+			worldMap.put(mirror, world);
+			return world;
+		}
 	}
 
 	@Override
 	public void createGroup(String name) {
+		Map<String, org.mooperms.configuration.groups.Group> groups = getConfiguration().getGroups().getGroups();
 
+		if(groups.containsKey(name)) {
+			throw new RuntimeException("Group already exists");
+		}
+
+		groups.put(name, new org.mooperms.configuration.groups.Group());
 	}
 
 	@Override
@@ -199,5 +217,13 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	@Override
 	public String[] getGroups() {
 		return new String[0];
+	}
+
+	private String getMirror(String world) {
+		for(Map.Entry<String, List<String>> parent : getConfiguration().getConfig().getMirrors().entrySet()) {
+			if(parent.getValue().contains(world))
+				return parent.getKey();
+		}
+		return world;
 	}
 }

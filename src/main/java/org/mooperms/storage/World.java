@@ -18,19 +18,18 @@ package org.mooperms.storage;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
+import org.mooperms.MooPerms;
 import org.mooperms.api.IGroup;
 import org.mooperms.api.IUser;
+import org.mooperms.api.IWorld;
 
 @RequiredArgsConstructor
-public class World {
+public class World implements IWorld {
 
+	private final MooPerms instance;
 	@Getter private final String name;
 
 	public IUser getUser(String name) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public IUser getUser(Player player) {
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 

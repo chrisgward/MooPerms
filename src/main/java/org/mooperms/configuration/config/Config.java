@@ -19,7 +19,13 @@ package org.mooperms.configuration.config;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Config {
 	@Getter @Setter String locale = null;
 	@Getter @Setter boolean debug = false;
+
+	@Getter @Setter Map<String, List<String>> mirrors = new HashMap<>();
 }
