@@ -13,11 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.chrisgward.mooperms.commands;
+package com.chrisgward.mooperms.converters.permissionsex.config.permissions;
 
-import com.chrisgward.mooperms.MooPerms;
-import org.bukkit.command.CommandExecutor;
+import lombok.Data;
 
-public abstract class AbstractCommand implements CommandExecutor {
-	MooPerms instance;
+@Data
+public class User {
 }

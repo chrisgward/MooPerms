@@ -15,12 +15,41 @@
 
 package com.chrisgward.mooperms.commands;
 
+import com.chrisgward.mooperms.converters.AbstractConverter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import static com.chrisgward.mooperms.I18n._;
+
 public class Commandmoo extends AbstractCommand {
 	@Override
-	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-		return false;  //To change body of implemented methods use File | Settings | File Templates.
+	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
+		if(args.length == 0) {
+			sender.sendMessage(new String[] {
+					_("mooPermsVersion", "?"),
+					_("forHelp"),
+					_("forSupport")
+			});
+			return true;
+		}
+
+		switch (args[0].toLowerCase()) {
+			case "help":
+
+				break;
+			case "import":
+				if(AbstractConverter.convert(instance)) {
+					sender.sendMessage("Conversion completed successfully");
+				} else {
+					sender.sendMessage("Conversion failed. See console for more information.");
+				}
+				break;
+			default:
+				sender.sendMessage(new String[] {
+						_("unrecognizedCommand", args[0]),
+						_("forHelp")});
+				break;
+		}
+		return true;
 	}
 }

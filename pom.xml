@@ -102,6 +102,11 @@
 			<version>LATEST</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.9-RC1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -131,12 +136,17 @@
 					<artifactSet>
 						<includes>
 							<include>org.mcstats.bukkit:metrics</include>
+							<include>org.reflections:reflections</include>
 						</includes>
 					</artifactSet>
 					<relocations>
 						<relocation>
 							<pattern>org.mcstats</pattern>
 							<shadedPattern>com.chrisgward.mooperms.metrics</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>org.reflections</pattern>
+							<shadedPattern>com.chrisgward.mooperms.reflections</shadedPattern>
 						</relocation>
 					</relocations>
 				</configuration>

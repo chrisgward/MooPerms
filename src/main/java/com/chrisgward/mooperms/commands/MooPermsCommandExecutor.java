@@ -43,7 +43,7 @@ public class MooPermsCommandExecutor implements CommandExecutor {
 			} else {
 				try {
 					executor = (AbstractCommand) Class.forName("com.chrisgward.mooperms.commands.Command" + command.getName()).newInstance();
-					executor.moo = instance;
+					executor.instance = instance;
 					executorMap.put(command.getName(), executor);
 				} catch (Exception e) {
 					throw new RuntimeException(e);
