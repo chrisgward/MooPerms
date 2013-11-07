@@ -51,11 +51,16 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	static MooPerms instance;
 
 	public void onEnable() {
-		try {
-			instance = this;
+		instance = this;
 
+		try {
 			configuration = new Configuration(this);
 			configuration.loadConfiguration();
+		} catch (Exception e) {
+			getLogger().log(Level.SEVERE, e.getMessage(), e);
+			lock = true;
+		}
+		try {
 
 			I18n.load();
 
@@ -151,7 +156,7 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 	}
 
 	public void showError(Exception exception, boolean isDebug) {
-		if (getConfiguration().getConfig().isDebug() || !isDebug) {
+		if (!isDebug || getConfiguration().getConfig().isDebug()) {
 			getLogger().log(Level.SEVERE, exception.getMessage(), exception);
 		}
 	}

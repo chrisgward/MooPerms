@@ -25,6 +25,7 @@ import java.util.Properties;
 
 @SuppressWarnings({"DuplicateStringLiteralInspection", "HardCodedStringLiteral", "StringConcatenation"})
 public class I18n {
+
 	private static Properties file;
 	private static Properties dfault;
 	private static Properties locale;
@@ -41,35 +42,28 @@ public class I18n {
 		try {
 			file = new Properties();
 			file.load(new FileInputStream(new File(MooPerms.instance.getDataFolder(), "messages.properties")));
-		} catch (FileNotFoundException e) {
-			MooPerms.instance.showError(e, true);
-			file = null;
 		} catch (Exception e) {
-			MooPerms.instance.showError(new Exception("Could not load i18n file from disk", e), false);
+			MooPerms.instance.debug("Could not load messages.properties file from disk");
 			file = null;
 		}
 
 		try {
 			locale = new Properties();
-			InputStream inputStream = I18n.class.getResourceAsStream("messages_" + currentLocale + ".properties");
+			InputStream inputStream = I18n.class.getResourceAsStream("/messages_" + currentLocale + ".properties");
 			if (inputStream == null) {
 				locale = null;
 			} else {
 				locale.load(inputStream);
 			}
 		} catch (Exception e) {
-			MooPerms.instance.showError(new Exception("Could not load localized i18n file from resource " + "messages_" + currentLocale + ".properties", e), false);
+			MooPerms.instance.debug("Could not load messages_" + currentLocale + ".properties from resource");
 			locale = null;
 		}
 
 		try {
-			locale = new Properties();
-			InputStream inputStream = I18n.class.getResourceAsStream("messages_" + currentLocale + ".properties");
-			if (inputStream == null) {
-				locale = null;
-			} else {
-				locale.load(inputStream);
-			}
+			dfault = new Properties();
+			InputStream inputStream = I18n.class.getResourceAsStream("/messages.properties");
+			dfault.load(inputStream);
 		} catch (Exception e) {
 			dfault = null;
 			throw new RuntimeException("Could not load I18n!", e);
@@ -103,10 +97,9 @@ public class I18n {
 			sb.append("\"").append(args[i].replace("'", "\\'")).append("\"");
 			if (i == args.length - 1) {
 				sb.append(", ");
-			} else {
-				sb.append("]");
 			}
 		}
+		sb.append("]");
 
 		return sb.toString();
 	}

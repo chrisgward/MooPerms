@@ -107,6 +107,11 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.9-RC1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.12</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -137,16 +142,21 @@
 						<includes>
 							<include>org.mcstats.bukkit:metrics</include>
 							<include>org.reflections:reflections</include>
+							<include>org.yaml:snakeyaml</include>
 						</includes>
 					</artifactSet>
 					<relocations>
 						<relocation>
 							<pattern>org.mcstats</pattern>
-							<shadedPattern>org.mooperms.metrics</shadedPattern>
+							<shadedPattern>org.mooperms.lib.metrics</shadedPattern>
 						</relocation>
 						<relocation>
 							<pattern>org.reflections</pattern>
-							<shadedPattern>org.mooperms.reflections</shadedPattern>
+							<shadedPattern>org.mooperms.lib.reflections</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>org.yaml.snakeyaml</pattern>
+							<shadedPattern>org.mooperms.lib.snakeyaml</shadedPattern>
 						</relocation>
 					</relocations>
 				</configuration>

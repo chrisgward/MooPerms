@@ -49,7 +49,7 @@ public class Group {
 
 	private boolean dfault = false;
 
-	public void setDefault(Boolean dfault) {
+	public void setDefault(boolean dfault) {
 		this.dfault = dfault;
 	}
 

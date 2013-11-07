@@ -6,6 +6,7 @@ groups:
         permissions:
         - stuff
         inheritance: []
+        default: true
         worlds:
             world:
                 permissions:

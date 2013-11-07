@@ -123,7 +123,7 @@ public class Configuration {
 
 	public void saveUsers() throws IOException {
 		if (usersLocation.lastModified() > usersLoadTime) {
-			fileNewer("groups.yml");
+			fileNewer("users.yml");
 			return;
 		}
 		saveFile(getUsers(), usersLocation);
