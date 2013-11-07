@@ -1,5 +1,5 @@
 name: MooPerms
-main: com.chrisgward.mooperms.MooPerms
+main: org.mooperms.MooPerms
 version: ${project.version}-b${build.number}
 commands:
   moo:

@@ -10,7 +10,7 @@
 
 	<name>MooPerms</name>
 	<description>Permissions Manager for Bukkit</description>
-	<url>http://mooperms.com</url>
+	<url>http://mooperms.org</url>
 
 	<issueManagement>
 		<system>CurseForge</system>
@@ -47,7 +47,7 @@
 	<inceptionYear>2013</inceptionYear>
 	<organization>
 		<name>MooPerms</name>
-		<url>http://mooperms.com</url>
+		<url>http://mooperms.org</url>
 	</organization>
 
 	<distributionManagement>
@@ -142,11 +142,11 @@
 					<relocations>
 						<relocation>
 							<pattern>org.mcstats</pattern>
-							<shadedPattern>com.chrisgward.mooperms.metrics</shadedPattern>
+							<shadedPattern>org.mooperms.metrics</shadedPattern>
 						</relocation>
 						<relocation>
 							<pattern>org.reflections</pattern>
-							<shadedPattern>com.chrisgward.mooperms.reflections</shadedPattern>
+							<shadedPattern>org.mooperms.reflections</shadedPattern>
 						</relocation>
 					</relocations>
 				</configuration>
@@ -230,11 +230,11 @@
 					<groups>
 						<group>
 							<title>API classes</title>
-							<packages>com.chrisgward.mooperms.api.*:com.chrisgward.mooperms.api</packages>
+							<packages>org.mooperms.api.*:org.mooperms.api</packages>
 						</group>
 						<group>
 							<title>Internal classes</title>
-							<packages>com.chrisgward.mooperms.*:com.chrisgward.mooperms</packages>
+							<packages>org.mooperms.*:org.mooperms</packages>
 						</group>
 					</groups>
 				</configuration>
