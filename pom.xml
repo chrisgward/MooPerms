@@ -13,8 +13,8 @@
 	<url>http://mooperms.org</url>
 
 	<issueManagement>
-		<system>CurseForge</system>
-		<url>http://dev.bukkit.org/bukkit-plugins/mooperms/tickets/</url>
+		<system>JIRA</system>
+		<url>https://chrisgward.atlassian.net/browse/MOOPERMS</url>
 	</issueManagement>
 
 	<scm>
