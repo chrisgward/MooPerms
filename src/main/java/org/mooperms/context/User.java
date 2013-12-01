@@ -64,7 +64,7 @@ public class User implements IUser {
 		if (world == null) {
 			user.addSubgroup(group);
 		} else {
-			user.addSubgroup(group, world);
+			user.addSubgroup(group, world.getName());
 		}
 	}
 
@@ -73,7 +73,7 @@ public class User implements IUser {
 		if (world == null) {
 			user.removeSubgroup(group);
 		} else {
-			user.removeSubgroup(group, world);
+			user.removeSubgroup(group, world.getName());
 		}
 	}
 
@@ -106,7 +106,7 @@ public class User implements IUser {
 		if (world == null) {
 			user.addPermission(permission);
 		} else {
-			user.addPermission(permission, world);
+			user.addPermission(permission, world.getName());
 		}
 	}
 
@@ -115,7 +115,7 @@ public class User implements IUser {
 		if (world == null) {
 			user.removePermission(permission);
 		} else {
-			user.removePermission(permission, world);
+			user.removePermission(permission, world.getName());
 		}
 	}
 
@@ -124,7 +124,7 @@ public class User implements IUser {
 		if (world == null) {
 			user.setGroup(group);
 		} else {
-			user.setGroup(group, world);
+			user.setGroup(group, world.getName());
 		}
 	}
 }

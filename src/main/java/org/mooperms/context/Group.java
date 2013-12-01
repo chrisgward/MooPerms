@@ -49,7 +49,7 @@ public class Group implements IGroup {
 		if (world == null) {
 			return getInheritance();
 		} else {
-			return group.getAllInheritance(world);
+			return group.getAllInheritance(world.getName());
 		}
 	}
 
@@ -94,7 +94,7 @@ public class Group implements IGroup {
 		if (world == null) {
 			group.addPermission(permission);
 		} else {
-			group.addPermission(permission, world);
+			group.addPermission(permission, world.getName());
 		}
 	}
 
@@ -103,7 +103,7 @@ public class Group implements IGroup {
 		if (world == null) {
 			group.removePermission(permission);
 		} else {
-			group.removePermission(permission, world);
+			group.removePermission(permission, world.getName());
 		}
 	}
 
