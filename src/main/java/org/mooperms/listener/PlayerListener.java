@@ -29,7 +29,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerLogin(PlayerLoginEvent e) {
-		((org.mooperms.context.User) instance.getUser(e.getPlayer().getName())).getUser().updatePermissions();
+		instance.getUser(e.getPlayer().getName()).getUser().updatePermissions();
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)

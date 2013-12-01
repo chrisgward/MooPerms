@@ -32,14 +32,7 @@ public abstract class AbstractConverter {
 
 	public boolean canConvert() {
 		if (configDirectory != null && configDirectory.exists() && configDirectory.isDirectory()) {
-			File lock = new File(configDirectory, ".mooperms");
 			if (!lock.exists()) {
-				try {
-					lock.createNewFile();
-				} catch (Exception e) {
-					instance.showError(e, false);
-					return false;
-				}
 				return true;
 			}
 		}
@@ -57,9 +50,10 @@ public abstract class AbstractConverter {
 	protected abstract String getName();
 
 	private String folder;
+	private File lock;
 
 	public static boolean convert(MooPerms instance) {
-		Reflections reflections = new Reflections("com.chrisgward.mooperms");
+		Reflections reflections = new Reflections("org.mooperms");
 		Set<Class<? extends AbstractConverter>> classes = reflections.getSubTypesOf(AbstractConverter.class);
 
 		for (Class<? extends AbstractConverter> clazz : classes) {
@@ -67,7 +61,9 @@ public abstract class AbstractConverter {
 				AbstractConverter converter = clazz.newInstance();
 				converter.instance = instance;
 				converter.configDirectory = new File(instance.getDataFolder().getParentFile(), converter.folder);
+				converter.lock = new File(converter.configDirectory, ".mooperms");
 				if (converter.canConvert()) {
+					converter.lock.createNewFile();
 					instance.getLogger().info("Importing permissions from " + converter.getName());
 					converter.doConversion();
 					instance.getConfiguration().setUsers(converter.getUsers());
@@ -76,6 +72,7 @@ public abstract class AbstractConverter {
 					instance.getConfiguration().saveConfiguration();
 					instance.reloadConfig();
 					instance.getLogger().info("Appears to have worked!");
+					converter.lock.delete();
 					return true;
 				}
 			} catch (Exception e) {

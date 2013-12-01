@@ -66,7 +66,6 @@ public class User implements IUser {
 		} else {
 			user.addSubgroup(group, world);
 		}
-		instance.updatePermissions(user);
 	}
 
 	@Override
@@ -76,7 +75,6 @@ public class User implements IUser {
 		} else {
 			user.removeSubgroup(group, world);
 		}
-		instance.updatePermissions(user);
 	}
 
 	@Override
@@ -110,7 +108,6 @@ public class User implements IUser {
 		} else {
 			user.addPermission(permission, world);
 		}
-		instance.updatePermissions(user);
 	}
 
 	@Override
@@ -120,7 +117,6 @@ public class User implements IUser {
 		} else {
 			user.removePermission(permission, world);
 		}
-		instance.updatePermissions(user);
 	}
 
 	@Override
@@ -130,6 +126,5 @@ public class User implements IUser {
 		} else {
 			user.setGroup(group, world);
 		}
-		instance.updatePermissions(user);
 	}
 }

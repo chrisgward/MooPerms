@@ -38,11 +38,6 @@ public interface IGroup {
 	String[] getAllInheritance();
 
 	/**
-	 * Gets a list of groups this group inherits in the specified context and in the global context. Includes their inheritances and continues until the top of the tree (usually the default rank).
-	 */
-	String[] getEffectiveInheritance();
-
-	/**
 	 * Gets a list of permissions applied to the group in the specified context.
 	 *
 	 * @return Permissions

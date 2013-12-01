@@ -22,12 +22,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
-import org.mooperms.api.IGroup;
 import org.mooperms.api.IMooPerms;
-import org.mooperms.api.IUser;
-import org.mooperms.api.IWorld;
 import org.mooperms.commands.MooPermsCommandExecutor;
 import org.mooperms.configuration.Configuration;
+import org.mooperms.listener.PlayerListener;
 import org.mooperms.storage.Group;
 import org.mooperms.storage.User;
 import org.mooperms.storage.World;
@@ -42,13 +40,17 @@ import static org.mooperms.I18n._;
 
 public class MooPerms extends JavaPlugin implements IMooPerms {
 
+	static MooPerms instance;
+
 	@Getter private Configuration configuration;
 	@Getter private boolean lock;
 	@Getter @Setter private String defaultGroup;
 
 	private Metrics metrics = null;
 
-	static MooPerms instance;
+	@Getter private Map<String, User> userMap;
+	@Getter private Map<String, Group> groupMap;
+	private Map<String, World> worldMap;
 
 	public void onEnable() {
 		instance = this;
@@ -56,6 +58,20 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		try {
 			configuration = new Configuration(this);
 			configuration.loadConfiguration();
+
+			groupMap = new HashMap<>();
+			userMap = new HashMap<>();
+			worldMap = new HashMap<>();
+
+			for(Map.Entry<String, org.mooperms.configuration.groups.Group> entry : configuration.getGroups().getGroups().entrySet()) {
+				debug("Loading group " + entry.getKey());
+				groupMap.put(entry.getKey(), new Group(this, entry.getKey(), entry.getValue()));
+			}
+
+			for(Map.Entry<String, org.mooperms.configuration.users.User> entry : configuration.getUsers().getUsers().entrySet()) {
+				debug("Loading user " + entry.getKey());
+				userMap.put(entry.getKey(), new User(this, entry.getKey(), entry.getValue()));
+			}
 		} catch (Exception e) {
 			getLogger().log(Level.SEVERE, e.getMessage(), e);
 			lock = true;
@@ -91,13 +107,12 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 			if (defaultGroup == null) {
 				throw new RuntimeException("No default group.");
 			}
-
-			userMap = new HashMap<>();
-			groupMap = new HashMap<>();
 		} catch (Exception e) {
 			lock = true;
 			throw new RuntimeException(e);
 		}
+
+		getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 	}
 
 	public void onDisable() {
@@ -119,10 +134,9 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		return executor.onCommand(sender, cmd, cmdLabel, args);
 	}
 
-	private Map<String, User> userMap = new HashMap<>();
 
 	@Override
-	public IUser getUser(String name) {
+	public org.mooperms.context.User getUser(String name) {
 		if (userMap.containsKey(name)) {
 			return userMap.get(name).getInContext(null);
 		}
@@ -155,7 +169,7 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		}
 	}
 
-	public void showError(Exception exception, boolean isDebug) {
+	public void showError(Throwable exception, boolean isDebug) {
 		if (!isDebug || getConfiguration().getConfig().isDebug()) {
 			getLogger().log(Level.SEVERE, exception.getMessage(), exception);
 		}
@@ -175,23 +189,31 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 			@Override
 			public void run() {
 				for (String player : users) {
-					((User) getUser(player)).updatePermissions();
+					getUser(player).getUser().updatePermissions();
 				}
 			}
 		});
 	}
 
-	private Map<String, Group> groupMap = new HashMap<>();
 
 	@Override
-	public IGroup getGroup(String name) {
-		return new org.mooperms.context.Group(this, name, groupMap.get(name), null);
+	public org.mooperms.context.Group getGroup(String name) {
+		Group group = groupMap.get(name);
+		if(group == null) {
+			debug("Group " + name + " not found");
+			debug("Loaded groups:");
+			for(String gr : groupMap.keySet()) {
+				debug(gr);
+			}
+			debug("Done.");
+			return null;
+		} else {
+			return group.getInContext(null);
+		}
 	}
 
-	private Map<String, World> worldMap = new HashMap<>();
-
 	@Override
-	public IWorld getWorld(String worldName) {
+	public World getWorld(String worldName) {
 		String mirror = getMirror(worldName);
 		if(worldMap.containsKey(mirror)) {
 			return worldMap.get(mirror);
@@ -216,11 +238,12 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 
 	@Override
 	public void removeGroup(String name) {
-
+		// TODO
 	}
 
 	@Override
 	public String[] getGroups() {
+		// TODO
 		return new String[0];
 	}
 

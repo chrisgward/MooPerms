@@ -17,11 +17,10 @@ package org.mooperms.storage;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.entity.Player;
 import org.mooperms.MooPerms;
-import org.mooperms.api.IGroup;
-import org.mooperms.api.IUser;
 import org.mooperms.api.IWorld;
+import org.mooperms.context.Group;
+import org.mooperms.context.User;
 
 @RequiredArgsConstructor
 public class World implements IWorld {
@@ -29,11 +28,19 @@ public class World implements IWorld {
 	private final MooPerms instance;
 	@Getter private final String name;
 
-	public IUser getUser(String name) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	public User getUser(String name) {
+		return instance.getUser(name).getUser().getInContext(this.name);
 	}
 
-	public IGroup getGroup(String name) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	public Group getGroup(String name) {
+		Group group = instance.getGroup(name);
+		if(group == null) {
+			throw new NullPointerException(name);
+		}
+		org.mooperms.storage.Group group2 = group.getGroup();
+		if(group2 == null) {
+			throw new NullPointerException(name);
+		}
+		return group2.getInContext(this.name);
 	}
 }

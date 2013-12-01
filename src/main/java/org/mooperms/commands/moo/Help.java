@@ -13,21 +13,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.mooperms.configuration.config;
+package org.mooperms.commands.moo;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.mooperms.commands.AbstractCommand;
 
-import lombok.Getter;
-import lombok.Setter;
+public class Help extends AbstractCommand {
+	@Override
+	public void command(CommandSender commandSender, Command cmd, String commandLabel, String[] args) {
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class Config {
-	@Getter @Setter String locale = null;
-	@Getter @Setter boolean debug = false;
-	@Getter @Setter boolean opOverride = false;
-	@Getter @Setter boolean allowCommandBlocks = false;
-
-	@Getter @Setter Map<String, List<String>> mirrors = new HashMap<>();
+	}
 }

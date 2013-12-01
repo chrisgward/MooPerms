@@ -13,21 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.mooperms.configuration.config;
+package org.mooperms.converters.permissionsex.config.permissions;
 
+import lombok.Data;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class Config {
-	@Getter @Setter String locale = null;
-	@Getter @Setter boolean debug = false;
-	@Getter @Setter boolean opOverride = false;
-	@Getter @Setter boolean allowCommandBlocks = false;
-
-	@Getter @Setter Map<String, List<String>> mirrors = new HashMap<>();
+@Data
+public class Group {
 }

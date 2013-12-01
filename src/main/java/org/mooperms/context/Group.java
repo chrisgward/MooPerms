@@ -24,7 +24,7 @@ public class Group implements IGroup {
 
 	@Getter private final String name;
 	private final World world;
-	private final org.mooperms.storage.Group group;
+	@Getter private final org.mooperms.storage.Group group;
 	private final MooPerms instance;
 
 	public Group(MooPerms instance, String name, org.mooperms.storage.Group group, World world) {
@@ -40,7 +40,7 @@ public class Group implements IGroup {
 		if (world == null) {
 			return group.getInheritance();
 		} else {
-			return group.getInheritance(world);
+			return group.getInheritance(world.getName());
 		}
 	}
 
@@ -54,16 +54,11 @@ public class Group implements IGroup {
 	}
 
 	@Override
-	public String[] getEffectiveInheritance() {
-		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	@Override
 	public String[] getPermissions() {
 		if (world == null) {
 			return group.getPermissions();
 		} else {
-			return group.getPermissions(world);
+			return group.getPermissions(world.getName());
 		}
 	}
 
@@ -72,13 +67,17 @@ public class Group implements IGroup {
 		if (world == null) {
 			return getPermissions();
 		} else {
-			return group.getAllPermissions(world);
+			return group.getAllPermissions(world.getName());
 		}
 	}
 
 	@Override
 	public String[] getEffectivePermissions() {
-		return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+		if (world == null) {
+			return group.getEffectivePermissions();
+		} else {
+			return group.getEffectivePermissions(world.getName());
+		}
 	}
 
 	@Override
@@ -86,7 +85,7 @@ public class Group implements IGroup {
 		if (world == null) {
 			return group.getUsers();
 		} else {
-			return group.getUsers(world);
+			return group.getUsers(world.getName());
 		}
 	}
 
@@ -97,7 +96,6 @@ public class Group implements IGroup {
 		} else {
 			group.addPermission(permission, world);
 		}
-		instance.updatePermissions(getUsers());
 	}
 
 	@Override
@@ -107,6 +105,6 @@ public class Group implements IGroup {
 		} else {
 			group.removePermission(permission, world);
 		}
-		instance.updatePermissions(getUsers());
 	}
+
 }

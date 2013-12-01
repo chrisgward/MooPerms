@@ -13,21 +13,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.mooperms.configuration.config;
+package org.mooperms.commands.moo;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.mooperms.commands.AbstractCommand;
+import org.mooperms.converters.AbstractConverter;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class Config {
-	@Getter @Setter String locale = null;
-	@Getter @Setter boolean debug = false;
-	@Getter @Setter boolean opOverride = false;
-	@Getter @Setter boolean allowCommandBlocks = false;
-
-	@Getter @Setter Map<String, List<String>> mirrors = new HashMap<>();
+public class Import extends AbstractCommand {
+	@Override
+	public void command(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
+		if (AbstractConverter.convert(instance)) {
+			sender.sendMessage("Conversion completed successfully");
+		} else {
+			sender.sendMessage("Conversion failed. See console for more information.");
+		}
+	}
 }

@@ -20,7 +20,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.mooperms.MooPerms;
-import org.mooperms.api.IUser;
 import org.mooperms.configuration.users.World;
 
 import java.util.Arrays;
@@ -57,7 +56,7 @@ public class User {
 	}
 
 	public String[] getSubgroups() {
-		return new String[0];
+		return user.getSubgroups().toArray(new String[user.getSubgroups().size()]);
 	}
 
 	public String[] getSubgroups(String world) {
@@ -65,34 +64,31 @@ public class User {
 	}
 
 	public String[] getPermissions() {
-		return new String[0];
+		return user.getPermissions().toArray(new String[user.getPermissions().size()]);
 	}
 
 	public String[] getPermissions(String world) {
-		return new String[0];
+		return user.getWorlds().get(world).getPermissions().toArray(new String[user.getWorlds().get(world).getPermissions().size()]);
 	}
 
 	public String[] getAllPermissions() {
-		Set<String> perms = new LinkedHashSet<>();
-		perms.addAll(Arrays.asList(getPermissions()));
-		perms.addAll(Arrays.asList(instance.getGroup(getGroup()).getEffectivePermissions()));
-		for (String subgroup : getSubgroups()) {
-			perms.addAll(Arrays.asList(instance.getGroup(subgroup).getAllPermissions()));
-		}
-
-		return perms.toArray(new String[perms.size()]);
+		return getPermissions();
 	}
 
 	public String[] getAllPermissions(String world) {
-		return new String[0];
+		Set<String> perms = new LinkedHashSet<>();
+		perms.addAll(Arrays.asList(getPermissions()));
+		perms.addAll(Arrays.asList(getPermissions(world)));
+		return perms.toArray(new String[perms.size()]);
 	}
 
 	public void updatePermissions() {
+		instance.debug("Updating permissions for player " + getName());
 		Player player = instance.getServer().getPlayer(getName());
 		if (player == null) {
 			return;
 		}
-		String[] permissions = getAllPermissions();
+		String[] permissions = getEffectivePermissions(player.getWorld().getName());
 
 		Set<PermissionAttachmentInfo> effectivePerms = player.getEffectivePermissions();
 		PermissionAttachment attachment = null;
@@ -125,59 +121,92 @@ public class User {
 		player.recalculatePermissions();
 	}
 
-	public IUser getInContext(String world) {
-		return new org.mooperms.context.User(instance, getName(), this, (org.mooperms.storage.World) instance.getWorld(world));
+	public org.mooperms.context.User getInContext(String world) {
+		return new org.mooperms.context.User(instance, getName(), this, instance.getWorld(world));
 	}
 
 	public void addPermission(String permission) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void addPermission(String permission, org.mooperms.storage.World world) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void removePermission(String permission) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void removePermission(String permission, org.mooperms.storage.World world) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void setGroup(String group) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void setGroup(String group, org.mooperms.storage.World world) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void addSubgroup(String group) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void removeSubgroup(String group) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void addSubgroup(String group, org.mooperms.storage.World world) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public void removeSubgroup(String group, org.mooperms.storage.World world) {
-
+		// TODO
+		updatePermissions();
 	}
 
 	public String[] getAllSubgroups(String name) {
+		// TODO
 		return new String[0];
 	}
 
 	public String[] getEffectivePermissions() {
-		return new String[0];
+		Set<String> perms = new LinkedHashSet<>();
+		perms.addAll(Arrays.asList(getPermissions()));
+		perms.addAll(Arrays.asList(instance.getGroup(getGroup()).getEffectivePermissions()));
+
+		for(String group : getSubgroups()) {
+			perms.addAll(Arrays.asList(instance.getGroup(group).getEffectivePermissions()));
+		}
+
+		return perms.toArray(new String[perms.size()]);
 	}
 
 	public String[] getEffectivePermissions(String name) {
-		return new String[0];
+		Set<String> perms = new LinkedHashSet<>();
+		perms.addAll(Arrays.asList(getAllPermissions(name)));
+		perms.addAll(Arrays.asList(instance.getWorld(name).getGroup(getGroup()).getEffectivePermissions()));
+
+		for(String group : getSubgroups()) {
+			perms.addAll(Arrays.asList(instance.getWorld(group).getGroup(getGroup()).getEffectivePermissions()));
+		}
+
+		String[] permissions = perms.toArray(new String[perms.size()]);
+		instance.debug("Listing " + getName() + "'s permissions");
+		for(String s : permissions) {
+			instance.debug(s);
+		}
+		instance.debug("Done.");
+		return permissions;
 	}
 }

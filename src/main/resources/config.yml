@@ -4,3 +4,7 @@ mirrors:
     - world_the_end
 
 locale: en_US
+
+opOverride: true
+
+allowCommandBlocks: false

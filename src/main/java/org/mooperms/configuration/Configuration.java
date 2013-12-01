@@ -22,9 +22,15 @@ import org.mooperms.MooPerms;
 import org.mooperms.configuration.config.Config;
 import org.mooperms.configuration.groups.Groups;
 import org.mooperms.configuration.users.Users;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.introspector.Property;
+import org.yaml.snakeyaml.nodes.NodeTuple;
+import org.yaml.snakeyaml.nodes.Tag;
 
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 
 import static org.mooperms.I18n._;
 
@@ -32,7 +38,35 @@ import static org.mooperms.I18n._;
 public class Configuration {
 	private final MooPerms instance;
 	private final File folder;
-	private final Yaml yaml = new Yaml();
+	private final Yaml yaml;
+
+	private class Representer extends org.yaml.snakeyaml.representer.Representer {
+		@Override
+		protected NodeTuple representJavaBeanProperty(Object javaBean, Property property, Object propertyValue, Tag customTag) {
+			if(propertyValue == null)
+				return null;
+			if(propertyValue instanceof Object[]) {
+				Object[] objectArray = (Object[])propertyValue;
+				if(((Object[]) propertyValue).length == 0) {
+					return null;
+				}
+			}
+			if(propertyValue instanceof List<?>) {
+				List<?> list = (List<?>)propertyValue;
+				if(list.size() == 0) {
+					return null;
+				}
+			}
+			if(propertyValue instanceof Map<?, ?>) {
+				Map<?, ?> map = (Map<?, ?>)propertyValue;
+				if(map.size() == 0) {
+					return null;
+				}
+			}
+
+			return super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
+		}
+	}
 
 	public Configuration(MooPerms instance) {
 		this.instance = instance;
@@ -40,6 +74,10 @@ public class Configuration {
 		configLocation = new File(folder, "config.yml");
 		groupsLocation = new File(folder, "groups.yml");
 		usersLocation = new File(folder, "users.yml");
+
+		DumperOptions options = new DumperOptions();
+		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+		yaml = new Yaml(new Representer(), options);
 	}
 
 	@Getter @Setter private Config config;
@@ -129,8 +167,22 @@ public class Configuration {
 		saveFile(getUsers(), usersLocation);
 	}
 
-	public void saveFile(Object obj, File file) throws IOException {
-		yaml.dump(obj, new OutputStreamWriter(new FileOutputStream(file)));
+	public void saveFile(Object obj, final File file) throws IOException {
+		yaml.dump(obj, new OutputStreamWriter(new OutputStream() {
+			boolean runonce = true;
+			FileOutputStream outputStream = new FileOutputStream(file);
+
+			@Override
+			public void write(int i) throws IOException {
+				if(runonce) {
+					if(i == '\n') {
+						runonce = false;
+					}
+				} else {
+					outputStream.write(i);
+				}
+			}
+		}));
 	}
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
