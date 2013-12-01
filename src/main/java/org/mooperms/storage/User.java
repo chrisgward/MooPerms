@@ -84,7 +84,7 @@ public class User {
 
 	public void updatePermissions() {
 		instance.debug("Updating permissions for player " + getName());
-		Player player = instance.getServer().getPlayerExact(getName());
+		Player player = instance.getServer().getPlayer(getName());
 		if (player == null) {
 			return;
 		}
