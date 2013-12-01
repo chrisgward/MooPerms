@@ -113,6 +113,7 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		}
 
 		getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+		updatePermissions();
 	}
 
 	public void onDisable() {
@@ -175,26 +176,16 @@ public class MooPerms extends JavaPlugin implements IMooPerms {
 		}
 	}
 
-	public void updatePermissions(final User user) {
+	public void updatePermissions() {
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			@Override
 			public void run() {
-				user.updatePermissions();
-			}
-		});
-	}
-
-	public void updatePermissions(final String[] users) {
-		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-			@Override
-			public void run() {
-				for (String player : users) {
-					getUser(player).getUser().updatePermissions();
+				for(Player player : getServer().getOnlinePlayers()) {
+					getUser(player.getName()).getUser().updatePermissions();
 				}
 			}
 		});
 	}
-
 
 	@Override
 	public org.mooperms.context.Group getGroup(String name) {

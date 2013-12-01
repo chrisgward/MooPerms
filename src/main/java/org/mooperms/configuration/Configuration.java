@@ -43,11 +43,12 @@ public class Configuration {
 	private class Representer extends org.yaml.snakeyaml.representer.Representer {
 		@Override
 		protected NodeTuple representJavaBeanProperty(Object javaBean, Property property, Object propertyValue, Tag customTag) {
-			if(propertyValue == null)
+			if(propertyValue == null) {
 				return null;
+			}
 			if(propertyValue instanceof Object[]) {
 				Object[] objectArray = (Object[])propertyValue;
-				if(((Object[]) propertyValue).length == 0) {
+				if(objectArray.length == 0) {
 					return null;
 				}
 			}

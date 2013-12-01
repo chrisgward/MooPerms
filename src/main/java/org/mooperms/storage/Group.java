@@ -18,6 +18,10 @@ package org.mooperms.storage;
 import lombok.Getter;
 import org.mooperms.MooPerms;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Group {
 	private final MooPerms instance;
 	@Getter private final String name;
@@ -35,63 +39,150 @@ public class Group {
 	}
 
 	public String[] getInheritance(String world) {
-		// TODO
-		return null;
+		org.mooperms.configuration.groups.World w = group.getWorlds().get(world);
+		if(w == null) {
+			return new String[0];
+		}
+		List<String> permissions = w.getPermissions();
+		if(permissions == null || permissions.size() == 0) {
+			return new String[0];
+		}
+		return permissions.toArray(new String[permissions.size()]);
+	}
+
+	public String[] getAllInheritance(String world) {
+		List<String> inheritance = new ArrayList<String>();
+		inheritance.addAll(Arrays.asList(getInheritance()));
+		inheritance.addAll(Arrays.asList(getInheritance(world)));
+		return inheritance.toArray(new String[inheritance.size()]);
 	}
 
 	public String[] getPermissions() {
 		return group.getPermissions().toArray(new String[group.getPermissions().size()]);
 	}
 
+
+	public String[] getPermissions(String world) {
+		org.mooperms.configuration.groups.World w = group.getWorlds().get(world);
+		if(w == null) {
+			return new String[0];
+		}
+		List<String> permissions = w.getPermissions();
+		if(permissions == null || permissions.size() == 0) {
+			return new String[0];
+		}
+		return permissions.toArray(new String[permissions.size()]);
+	}
+
+	public String[] getAllPermissions(String world) {
+		List<String> perms = new ArrayList<>();
+		perms.addAll(Arrays.asList(getPermissions()));
+		perms.addAll(Arrays.asList(getPermissions(world)));
+		return perms.toArray(new String[perms.size()]);
+	}
+
+	public String[] getEffectivePermissions() {
+		List<String> perms = new ArrayList<>();
+		perms.addAll(Arrays.asList(getPermissions()));
+		for(String group : getInheritance()) {
+			perms.addAll(Arrays.asList(instance.getGroup(group).getEffectivePermissions()));
+		}
+
+		return perms.toArray(new String[perms.size()]);
+	}
+
+	public String[] getEffectivePermissions(String world) {
+		List<String> perms = new ArrayList<>();
+		perms.addAll(Arrays.asList(getEffectivePermissions()));
+		for(String group : getInheritance(world)) {
+			perms.addAll(Arrays.asList(instance.getWorld(world).getGroup(group).getEffectivePermissions()));
+		}
+
+		return perms.toArray(new String[perms.size()]);
+	}
+
 	public String[] getUsers() {
 		// TODO
-		return null;
+		return new String[0];
 	}
 
 	public String[] getUsers(String world) {
 		// TODO
-		return null;
+		return new String[0];
 	}
 
 	public void addPermission(String permission) {
-		// TODO
+		if(permission.startsWith("-")) {
+			removePermission(permission.substring(1));
+			return;
+		}
+
+		List<String> permissions = group.getPermissions();
+
+		if(permissions.contains(permission)) {
+			throw new IllegalArgumentException("Group already has this permission.");
+		} else {
+			if(permissions.contains("-" + permission)) {
+				permissions.remove("-" + permission);
+			} else {
+				permissions.add(permission);
+			}
+
+			instance.updatePermissions();
+		}
 	}
 
-	public void addPermission(String permission, World world) {
-		// TODO
+	public void addPermission(String permission, String world) {
+		if(permission.startsWith("-")) {
+			removePermission(permission.substring(1), world);
+			return;
+		}
+
+		org.mooperms.configuration.groups.World w = group.getWorlds().get(world);
+		if(w == null) {
+			w = new org.mooperms.configuration.groups.World();
+			group.getWorlds().put(world.toLowerCase(), w);
+		}
+
+		List<String> permissions = w.getPermissions();
+		if(permissions.contains(permission)) {
+			throw new IllegalArgumentException("Group already has this permission.");
+		} else {
+			if(permissions.contains("-" + permission)) {
+				permissions.remove("-" + permission);
+			} else {
+				permissions.add(permission);
+			}
+			instance.updatePermissions();
+		}
 	}
 
 	public void removePermission(String permission) {
-		// TODO
+		if(permission.startsWith("-")) {
+			addPermission(permission.substring(1));
+			return;
+		}
+
+		List<String> permissions = group.getPermissions();
+
+		instance.updatePermissions();
 	}
 
-	public void removePermission(String permission, World world) {
-		// TODO
-	}
+	public void removePermission(String permission, String world) {
+		if(permission.startsWith("-")) {
+			addPermission(permission.substring(1), world);
+			return;
+		}
 
-	public String[] getPermissions(String world) {
-		// TODO
-		return null;
-	}
+		org.mooperms.configuration.groups.World w = group.getWorlds().get(world);
+		if(w == null) {
+			w = new org.mooperms.configuration.groups.World();
+			group.getWorlds().put(world.toLowerCase(), w);
+		}
 
-	public String[] getAllPermissions(String world) {
-		// TODO
-		return new String[0];
-	}
+		w.getPermissions().add(permission);
 
-	public String[] getEffectivePermissions() {
-		// TODO
-		return new String[0];
-	}
-
-	public String[] getEffectivePermissions(String world) {
-		// TODO
-		return new String[0];
-	}
-
-	public String[] getAllInheritance(World world) {
-		// TODO
-		return new String[0];
+		instance.updatePermissions();
 	}
 
 	public org.mooperms.context.Group getInContext(String world) {

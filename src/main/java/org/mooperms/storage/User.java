@@ -22,10 +22,7 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.mooperms.MooPerms;
 import org.mooperms.configuration.users.World;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class User {
 	private final MooPerms instance;
@@ -44,35 +41,53 @@ public class User {
 
 	public String getGroup(String worldName) {
 		Map<String, World> worlds = user.getWorlds();
-		for (Map.Entry<String, World> world : worlds.entrySet()) {
-			if (world.getKey().equalsIgnoreCase(worldName)) {
-				String group = world.getValue().getGroup();
-				if (group != null) {
-					return group;
-				}
-			}
+		World world = worlds.get(worldName);
+		if(world == null) {
+			return null;
 		}
-		return null;
+		String group = world.getGroup();
+		if(world.getGroup() == null) {
+			return null;
+		}
+		return world.getGroup();
 	}
 
 	public String[] getSubgroups() {
 		return user.getSubgroups().toArray(new String[user.getSubgroups().size()]);
 	}
 
-	public String[] getSubgroups(String world) {
-		return new String[0];
+	public String[] getSubgroups(String worldName) {
+		Map<String, World> worlds = user.getWorlds();
+		World world = worlds.get(worldName);
+		if(world == null) {
+			return new String[0];
+		}
+
+		List<String> subgroups = world.getSubgroups();
+		if(subgroups == null || subgroups.size() == 0) {
+			return new String[0];
+		}
+
+		return subgroups.toArray(new String[subgroups.size()]);
 	}
 
 	public String[] getPermissions() {
 		return user.getPermissions().toArray(new String[user.getPermissions().size()]);
 	}
 
-	public String[] getPermissions(String world) {
-		return user.getWorlds().get(world).getPermissions().toArray(new String[user.getWorlds().get(world).getPermissions().size()]);
-	}
+	public String[] getPermissions(String worldName) {
+		Map<String, World> worlds = user.getWorlds();
+		World world = worlds.get(worldName);
+		if(world == null) {
+			return new String[0];
+		}
 
-	public String[] getAllPermissions() {
-		return getPermissions();
+		List<String> permissions = world.getPermissions();
+		if(permissions == null || permissions.size() == 0) {
+			return new String[0];
+		}
+
+		return permissions.toArray(new String[permissions.size()]);
 	}
 
 	public String[] getAllPermissions(String world) {
@@ -126,57 +141,142 @@ public class User {
 	}
 
 	public void addPermission(String permission) {
-		// TODO
+		if(permission.startsWith("-")) {
+			removePermission(permission.substring(1));
+			return;
+		}
+
+		List<String> permissions = user.getPermissions();
+
+		if(permissions.contains("-" + permission)) {
+			permissions.remove("-" + permission);
+		} else {
+			permissions.add(permission);
+		}
+
 		updatePermissions();
 	}
 
-	public void addPermission(String permission, org.mooperms.storage.World world) {
-		// TODO
+	public void addPermission(String permission, String worldName) {
+		if(permission.startsWith("-")) {
+			removePermission(permission.substring(1), worldName);
+			return;
+		}
+		World world = user.getWorlds().get(worldName);
+		if(world == null) {
+			world = new World();
+			user.getWorlds().put(worldName, world);
+		}
+
+		if(world.getPermissions().contains("-" + permission)) {
+			world.getPermissions().remove("-" + permission);
+		} else {
+			world.getPermissions().add(permission);
+		}
 		updatePermissions();
 	}
 
 	public void removePermission(String permission) {
-		// TODO
+		if(permission.startsWith("-")) {
+			addPermission(permission.substring(1));
+			return;
+		}
+
+		List<String> permissions = user.getPermissions();
+
+		if(permissions.contains(permission)) {
+			permissions.remove(permission);
+		} else {
+			permissions.add("-" + permission);
+		}
+
 		updatePermissions();
 	}
 
-	public void removePermission(String permission, org.mooperms.storage.World world) {
-		// TODO
+	public void removePermission(String permission, String worldName) {
+		if(permission.startsWith("-")) {
+			addPermission(permission.substring(1), worldName);
+			return;
+		}
+		World world = user.getWorlds().get(worldName);
+		if(world == null) {
+			world = new World();
+			user.getWorlds().put(worldName, world);
+		}
+
+		List<String> permissions = world.getPermissions();
+
+		if(permissions.contains(permission)) {
+			permissions.remove(permission);
+		} else {
+			permissions.add("-" + permission);
+		}
+
 		updatePermissions();
 	}
 
 	public void setGroup(String group) {
-		// TODO
+		user.setGroup(group);
+
 		updatePermissions();
 	}
 
-	public void setGroup(String group, org.mooperms.storage.World world) {
-		// TODO
+	public void setGroup(String group, String worldName) {
+		World world = user.getWorlds().get(worldName);
+		if(world == null) {
+			if(group == null) {
+				return;
+			}
+			world = new World();
+			user.getWorlds().put(worldName, world);
+		}
+		world.setGroup(group);
 		updatePermissions();
 	}
 
 	public void addSubgroup(String group) {
-		// TODO
+		user.getSubgroups().add(group);
+		updatePermissions();
+	}
+
+	public void addSubgroup(String group, String worldName) {
+		World world = user.getWorlds().get(worldName);
+		if(world == null) {
+			world = new World();
+			user.getWorlds().put(worldName, world);
+		}
+
+		world.getSubgroups().add(group);
+
 		updatePermissions();
 	}
 
 	public void removeSubgroup(String group) {
-		// TODO
+		user.getSubgroups().remove(group);
 		updatePermissions();
 	}
 
-	public void addSubgroup(String group, org.mooperms.storage.World world) {
-		// TODO
+	public void removeSubgroup(String group, String worldName) {
+		World world = user.getWorlds().get(worldName);
+		if(world == null) {
+			world = new World();
+			user.getWorlds().put(worldName, world);
+		}
+
+		List<String> subgroups = world.getSubgroups();
+		if(subgroups.contains(group)) {
+			subgroups.remove(group);
+		} else {
+			subgroups.add("-" + group);
+		}
+
 		updatePermissions();
 	}
 
-	public void removeSubgroup(String group, org.mooperms.storage.World world) {
-		// TODO
-		updatePermissions();
-	}
-
-	public String[] getAllSubgroups(String name) {
-		// TODO
+	public String[] getAllSubgroups(String worldName) {
+		Set<String> subgroups = new LinkedHashSet<>();
+		subgroups.addAll(Arrays.asList(getSubgroups()));
+		subgroups.addAll(Arrays.asList(getSubgroups(worldName)));
 		return new String[0];
 	}
 
@@ -192,12 +292,12 @@ public class User {
 		return perms.toArray(new String[perms.size()]);
 	}
 
-	public String[] getEffectivePermissions(String name) {
+	public String[] getEffectivePermissions(String worldName) {
 		Set<String> perms = new LinkedHashSet<>();
-		perms.addAll(Arrays.asList(getAllPermissions(name)));
-		perms.addAll(Arrays.asList(instance.getWorld(name).getGroup(getGroup()).getEffectivePermissions()));
+		perms.addAll(Arrays.asList(getAllPermissions(worldName)));
+		perms.addAll(Arrays.asList(instance.getWorld(worldName).getGroup(getGroup()).getEffectivePermissions()));
 
-		for(String group : getSubgroups()) {
+		for(String group : getSubgroups(worldName)) {
 			perms.addAll(Arrays.asList(instance.getWorld(group).getGroup(getGroup()).getEffectivePermissions()));
 		}
 
