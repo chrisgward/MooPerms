@@ -16,14 +16,16 @@
 package org.mooperms.storage;
 
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.mooperms.MooPerms;
 import org.mooperms.configuration.users.World;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class User {
 	private final MooPerms instance;
@@ -83,12 +85,7 @@ public class User {
 	public void updatePermissions() {
 		instance.debug("Updating permissions for player " + getName());
 		Player player = instance.getServer().getPlayerExact(getName());
-		for(Player playr : Bukkit.getOnlinePlayers()) {
-			instance.getLogger().info("HELLO " + playr.getName());
-		}
-		instance.getLogger().info(getName());
 		if (player == null) {
-			instance.getLogger().info("!!! Testing Failed.");
 			return;
 		}
 		String[] permissions = getEffectivePermissions(player.getWorld().getName());
@@ -102,7 +99,6 @@ public class User {
 				break;
 			}
 		}
-		instance.getLogger().info("!!! testing 1");
 
 		if (attachment == null) {
 			attachment = player.addAttachment(instance);
@@ -110,16 +106,13 @@ public class User {
 
 		for (Map.Entry<String, Boolean> permission : attachment.getPermissions().entrySet()) {
 			attachment.unsetPermission(permission.getKey());
-			instance.getLogger().info("!!! testing 3");
 		}
-		instance.getLogger().info("!!! testing 2");
 
 		for (String permission : permissions) {
 			boolean value = true;
 			if (permission.startsWith("-")) {
 				value = false;
 				permission = permission.substring(1);
-				instance.getLogger().info("!!! testing 4 " + permission);
 			}
 
 			attachment.setPermission(permission, value);

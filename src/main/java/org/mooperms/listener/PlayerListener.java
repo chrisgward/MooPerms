@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.mooperms.MooPerms;
 
@@ -28,7 +28,7 @@ public class PlayerListener implements Listener {
 	private MooPerms instance;
 
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerLogin(PlayerLoginEvent e) {
+	public void onPlayerJoin(PlayerJoinEvent e) {
 		instance.getUser(e.getPlayer().getName()).getUser().updatePermissions();
 	}
 
