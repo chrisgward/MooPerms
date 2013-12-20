@@ -13,17 +13,17 @@ If you are experiencing issues with MooPerms, please follow the instructions on 
 
 * Check the FAQ
 
-	If you cannot find/fix the issue, please check the {{{./faq.html}}FAQ} page, as it may have the answer.
+	If you cannot find/fix the issue, please check the {{{./faq.html}FAQ}} page, as it may have the answer.
 
 * Come chat with us
 
-	If you cannot resolve the issue, please visit our live IRC support chat at {{{LINK TODO}}#mooperms}\
+	If you cannot resolve the issue, please visit our live IRC support chat at {{{LINK TODO}#mooperms}}\
 	When you join, please ask your question, don't ask to ask or ping ops randomly.
 
 * Open a ticket
 
-	If we cannot help you on IRC, please open a ticket on our {{{https://chrisgward.atlassian.net/browse/MOOPERMS}}issue tracker}.\
-	We will get back to you as soon as possible. Please state your MooPerms and Bukkit versions, provide a link to a {{{http://pastebin.com}}Pastebin} of your latest.log and describe your issue in detail.
+	If we cannot help you on IRC, please open a ticket on our {{{https://chrisgward.atlassian.net/browse/MOOPERMS}issue tracker}}.\
+	We will get back to you as soon as possible. Please state your MooPerms and Bukkit versions, provide a link to a {{{http://pastebin.com}Pastebin}} of your latest.log and describe your issue in detail.
 
 * Still not working?
 
