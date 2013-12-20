@@ -15,31 +15,12 @@
 
 package org.mooperms.commands;
 
-import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.mooperms.MooPerms;
-
-import static org.mooperms.I18n._;
 
 public abstract class AbstractCommand {
 	protected MooPerms instance;
 
 	public abstract void command(CommandSender sender, Command cmd, String cmdLabel, String[] args) throws Exception;
-
-	public final void onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) throws Exception {
-		if(sender instanceof Player) {
-			if(sender.hasPermission("mooperms." + cmd.getName()) || (sender.isOp() && instance.getConfiguration().getConfig().isOpOverride())) {
-			  	command(sender, cmd, cmdLabel, args);
-			} else {
-				throw new Exception(_("noPermission"));
-			}
-		} else {
-			if(!(sender instanceof BlockCommandSender) || instance.getConfiguration().getConfig().isAllowCommandBlocks())
-				command(sender, cmd, cmdLabel, args);
-			else
-				throw new Exception(_("noCommandBlocks"));
-		}
-	}
 }

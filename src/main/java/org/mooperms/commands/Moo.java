@@ -65,6 +65,6 @@ public class Moo extends AbstractCommand {
 		String[] newargs = new String[args.length - 1];
 		System.arraycopy(args, 1, newargs, 0, args.length - 1);
 
-		command.onCommand(sender, cmd, cmdLabel, newargs);
+		command.command(sender, cmd, cmdLabel, newargs);
 	}
 }
