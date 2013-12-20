@@ -47,7 +47,9 @@ public abstract class AbstractConverter {
 	protected MooPerms instance;
 	@Getter protected File configDirectory;
 
-	protected abstract String getName();
+	protected String getName() {
+		return folder;
+	}
 
 	private String folder;
 	private File lock;
