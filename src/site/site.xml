@@ -24,7 +24,7 @@
 	<custom>
 		<fluidoSkin>
 			<googleSearch>
-				<sitesearch>http://mooperms.chrisgward.com/</sitesearch>
+				<sitesearch>http://mooperms.org/</sitesearch>
 			</googleSearch>
 			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
 		</fluidoSkin>
@@ -33,7 +33,7 @@
 	<body>
 		<links>
 			<item name="BukkitDev" href="http://dev.bukkit.org/bukkit-plugins/mooperms/"/>
-			<item name="Jenkins" href="http://ci.chrisgward.com/job/MooPerms"/>
+			<item name="Jenkins" href="http://ci.chrisgward.com/view/MooPerms/"/>
 			<item name="GitHub" href="https://github.com/chrisgward/MooPerms"/>
 		</links>
 

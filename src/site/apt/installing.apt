@@ -6,18 +6,25 @@ Installing MooPerms
 
 * Download MooPerms
 
-	First, you should decide whether to run Development Builds or Stable Builds.
+	First, choose a version to run, development, prerelease or release. Each have their up and down sides, briefly described below.\
+	We recommend the use of the release builds on production servers, however, we appreciate people using the non-release builds, as it helps us to quicker push out stable builds.\
 
 ** Development Builds
 
 	A development build is a build hot-off-the-press with the very latest features. However, they are also more prone to bugs.\
-	We do not recommend the use of development builds on production servers. Use at own risk\
+	We do not recommend the use of development builds on production servers, however they do contain the latest features/fixes. Use at own risk\
 	Development builds can be retrieved from {{{http://ci.chrisgward.com/job/MooPerms/}Jenkins}}
 
-** Stable Builds
+** Prerelease Builds
+
+	Prerelease builds are considered more stable than development builds. These are the builds we are looking to push to release.\
+    These builds generally have newer features than the release builds and are generally safe for production use.\
+    Prerelease builds can be retrieved from {{{http://ci.chrisgward.com/job/MooPermsPreb/}Jenkins}}
+
+** Release Builds
 
 	A stable build is tried and tested and found to have very few to no bugs. However, these don't have the latest features.\
-	Stable builds can be retrieved from {{{http://dev.bukkit.org/bukkit-plugins/mooperms/files/}BukkitDev}}
+	Stable builds can be retrieved from {{{http://dev.bukkit.org/bukkit-plugins/mooperms/files/}BukkitDev}} or {{{http://ci.chrisgward.com/job/MooPermsRelb/}Jenkins}}
 
 * Install MooPerms
 
@@ -26,3 +33,7 @@ Installing MooPerms
 * Configure MooPerms
 
     Please see the {{{./configuration/index.html}configuration}} page for information on configuration
+
+* Getting Help
+
+	If you are experiencing issues with MooPerms, please visit the {{{./support.html}support page} for assistance.

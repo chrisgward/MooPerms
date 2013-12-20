@@ -14,7 +14,7 @@ Compiling MooPerms
 mvn package
 +--
 
-	The jar can then be found in as target/MooPerms-version.jar
+	The jar can then be found in as target/MooPerms-<version>.jar
 
 * Creating the documentation website
 
